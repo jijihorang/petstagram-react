@@ -1,0 +1,98 @@
+.search-nav-container {
+    background-color: #fff;
+    position: fixed;
+    left: 80px;
+    top: 0;
+    height: 100vh;
+    width: 470px;
+    z-index: 560;
+    border-right: 1px solid rgb(237, 237, 237);
+    border-left: 1px solid rgb(237, 237, 237);
+    border-radius: 0 20px;
+    box-shadow: 10px 0 10px -5px rgba(0, 0, 0, 0.3);
+}
+.search-nav-title {
+    padding: 30px;
+    border-bottom: 1px solid rgb(237, 237, 237);
+}
+
+.search-nav-container h2 {
+    margin: 0 0 30px 0;
+}
+
+.search-nav-container input {
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.recent-searches {
+    border-top: 1px solid rgb(237, 237, 237);
+    padding: 30px 30px 0 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.search-all-clear {
+    color: rgb(65, 147, 239);
+}
+
+.search-delete-btn {
+    background-color: transparent;
+    border: none;
+    color: rgb(115, 115, 115);
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: auto;
+}
+
+.search-members {
+    padding: 10px;
+    display: flex;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-item {
+    padding: 10px 30px 10px 30px; 
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between; 
+}
+
+.search-info {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; 
+}
+
+.search-icon-wrapper {
+    margin-right: 10px; 
+    display: flex;
+    align-items: center;
+}
+
+.search-profile-image {
+    border-radius: 50%; /* 이미지를 동그랗게 만듭니다 */
+    width: 60px; /* 이미지의 너비를 설정합니다 */
+    height: 60px; /* 이미지의 높이를 설정합니다 */
+    object-fit: cover; /* 이미지를 컨테이너에 맞게 조정합니다 */
+}
+
+.hidden {
+    display: none;
+}
+
+.no-recent-searches {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50%;
+    color: rgb(115, 115, 115);
+    text-align: center;
+}

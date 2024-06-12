@@ -1,0 +1,116 @@
+.login-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 5px;
+}
+
+.login-form h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 270px;
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #7ab3f4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.or-separator {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.or-text {
+    margin: 0 20px;
+    color: #8e8e8e;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background-color: #dbdbdb;
+}
+
+a {
+    text-decoration: none;
+    color: #3d5081;
+}
+
+.facebook-login {
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.facebook-login img {
+    width: 14px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.forgot-password {
+    font-size: 13px;
+    margin-top: 25px;
+    margin-bottom: -5px;
+    text-align: center;
+}
+
+.signup-section {
+    margin-top: 10px; 
+    text-align: center;
+}
+
+.signup-box {
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    width: 350px;
+    margin: 0 auto;
+}
+
+.signup-link {
+    color: #4193ef;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.signup-link:hover {
+    color: #4193ef;
+}
+
+/* 미디어 쿼리 */
+@media (min-width: 1500px) {
+    .login-container,
+    .slide {
+        margin-top: 210px; 
+    }
+}
+

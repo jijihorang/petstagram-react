@@ -1,0 +1,66 @@
+.messagelist {
+    background-color: #fff;
+    left: 80px; 
+    top: 0;
+    height: 100vh;
+    width: 470px;
+    border-left: 1px solid rgb(237, 237, 237);
+    border-right: 1px solid rgb(237, 237, 237);
+    border-radius: 0 20px 20px 0;
+    overflow-y: auto; /* 스크롤 가능하게 */
+    position: relative;
+}
+
+.Message_title_div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+.Message_title_section {
+    font-size: 24px;
+    margin: 0;
+}
+
+.Message_message_edit {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.Message_message_item {
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.message_item:hover {
+    background-color: #f9f9f9;
+}
+
+
+.Message_ellipse {
+    height: 53px;
+    width: 53px;
+    background-color: #ccc;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.Message_message_info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column; /* 내용을 위 아래로 정렬 */
+}
+
+.Message_user_name {
+    font-weight: bold;
+}
+
+.Message_message_text {
+    color: #666;
+    font-size: 14px;
+}

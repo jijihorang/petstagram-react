@@ -1,0 +1,112 @@
+.home-nav-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    background-color: white; /* 배경 투명 설정 */
+    z-index: 1;
+}
+
+.sidebar-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: transparent; /* 배경 투명 설정 */
+}
+
+.more-menu {
+    top: 540px;
+    font-size: 20px;
+    background-color: transparent;
+}
+
+.more-menu.active {
+    font-weight: bold;
+    color: #000;
+}
+
+.menu-wrapper {
+    margin-top: 40px;
+    margin-left: 20px;
+    background-color: transparent;
+}
+
+.menu-wrapper .menu-item {
+    margin-bottom: 20px;
+}
+
+.menu-wrapper .menu-item:last-child {
+    margin-bottom: 0;
+}
+
+.menu-icon {
+    width: 33px;
+    height: 33px;
+    margin-right: 30px;
+}
+
+.menu-item-profile-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 30px;
+}
+
+.menu-item,
+.menu-item-profile {
+    font-size: 20px;
+    background-color: transparent; /* 배경 투명 설정 */
+}
+
+.menu-item.active {
+    font-weight: bold;
+    color: #000; /* 원하는 색상으로 변경 */
+}
+
+.menu-item-profile-img.active {
+    border: 2px solid black; /* 원하는 두께와 색상으로 설정 */
+    border-radius: 50%; /* 둥근 테두리를 유지 */
+}
+
+.menu-item-profile.active {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000; /* 원하는 색상으로 변경 */
+}
+
+/* 반응형 스타일 */
+@media (max-width: 1100px) {
+    .home-nav-container {
+        width: 80px; /* 축소된 너비 설정 */
+    }
+
+    .sidebar-wrapper {
+        align-items: center; /* 중앙 정렬 */
+    }
+
+    .menu-wrapper {
+        margin-left: 0;
+    }
+
+    .menu-icon,
+    .menu-item-profile-img {
+        margin-right: 0;
+    }
+
+    .more-menu {
+        margin-top: -280px;
+    }
+
+    .menu-item {
+        display: flex;
+        font-size: 0;
+    }
+}
+
+@media (max-width: 2055px) {
+    .more-menu {
+        top: 400px;
+    }
+}

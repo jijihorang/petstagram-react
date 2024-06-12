@@ -1,0 +1,272 @@
+.profile-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    z-index: 990;
+}
+
+.profile-modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 620px;
+    height: auto;
+    max-width: 90%;
+    max-height: auto;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 23px;
+}
+
+.profile-close-btn{
+    width: auto;
+    border: none;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    background: rgb(239, 239, 239);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-email {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.profile-name {
+    font-size: 16px;
+    color: #888;
+}
+
+.profile-change-pic-btn {
+    padding: 10px 15px;
+    background: rgb(65, 147, 239);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 110px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.profile-input-bio {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.profile-input-bio label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.profile-input-bio textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    resize: none;
+    border-radius: 15px;
+    box-shadow: 0 0 0 1px #e0e0e0 inset;
+    font-size: 20px;
+}
+
+.profile-input-bio textarea:focus {
+    outline: none;
+}
+
+.profile-input-bio small {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #666;
+}
+
+.profile-input-gen {
+    margin-bottom: 20px;
+}
+
+.profile-input-gen label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.profile-input-gen .profile-select__control {
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    padding: 15px 10px;
+    font-size: 20px;
+    box-shadow: none;
+}
+
+.profile-input-gen .profile-select__menu {
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.profile-input-gen .profile-select__option {
+    background-color: white;
+    padding: 15px;
+}
+
+.profile-input-gen .profile-select__option--is-focused {
+    background-color: #e0e0e0;
+}
+
+.profile-input-gen .profile-select__option--is-selected {
+    background-color: white;
+    color: black;
+}
+
+.profile-input-gen small {
+    margin-top: 10px;
+    display: block;
+    color: #666;
+}
+
+.profile-input-recommend {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.profile-input-recommend label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.profile-recommend-border{
+    border: 1px solid #ccc;
+
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.profile-recommend-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-toggle-switch {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.profile-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.profile-slider {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 25px;
+    background-color: #ccc;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.profile-slider:before {
+    content: "";
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background: white;
+    top: 2px;
+    left: 2px;
+    transition: 0.4s;
+}
+
+input:checked + .profile-slider:before {
+    transform: translateX(25px);
+}
+
+input:checked + .profile-slider {
+    background-color: #007BFF;
+}
+
+.profile-input-recommend small {
+    margin-top: 10px;
+    display: block;
+    color: #666;
+}
+
+.profile-submit-btn {
+    width: 50%;
+    padding: 10px 20px;
+    background: rgb(65, 147, 239);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    float: right;
+}
+
+.profile-submit-btn:disabled {
+    background: rgb(198, 222, 250); 
+    cursor: not-allowed; 
+    border-radius: 10px;
+}
+
+/* 미디어 쿼리 추가 */
+@media (max-width: 1079px) {
+    .profile-modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .profile-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-change-pic-btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .profile-submit-btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+

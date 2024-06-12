@@ -1,0 +1,211 @@
+.friendnav {
+    height: 686px;
+    left: 1400px;
+    position: absolute;
+    top: 0;
+    width: 391px;
+}
+
+.friendnav-user-profile-image,
+.friendnav-profile-image {
+    border-radius: 50%;
+    height: 53px;
+    width: 53px;
+    object-fit: cover;
+}
+
+.friendnav-user-info {
+    height: 53px;
+    left: 0;
+    position: absolute;
+    top: 66px;
+    width: 391px;
+}
+
+.friendnav-user-profile {
+    left: 60px;
+    position: absolute;
+    top: 0;
+    width: 197px;
+}
+
+.friendnav-user-profile-wrapper {
+    align-items: flex-start;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    position: relative;
+    top: 9px;
+}
+
+.friendnav-user-email {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 13.6px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-top: -1px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.friendnav-user-name {
+    color: #afafaf;
+    font-family: "Inter", Helvetica;
+    font-size: 13.6px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.friendnav-logout {
+    height: 53px;
+    left: 280px;
+    position: absolute;
+    top: 0;
+    width: 134px;
+}
+
+.friendnav-logout-btn {
+    color: #00a3ff;
+    font-family: "Inter", Helvetica;
+    font-size: 13.6px;
+    font-weight: 700;
+    left: 6px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 17px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.friendnav-recommend-user-email {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 13.6px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-top: -1px;
+    white-space: nowrap;
+}
+
+.friendnav-item-div{
+    right: 20px;
+}
+
+.friendnav-recommend-user-text {
+    color: #afafaf;
+    font-family: "Inter", Helvetica;
+    font-size: 13.6px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+    margin-right: 100px;
+}
+
+.friendnav-recommend {
+    height: 56px;
+    left: 10px;
+    position: absolute;
+    top: 119px;
+    width: 401px;
+}
+
+.friendnav-recommend-wrapper {
+    height: auto;
+    left: 0;
+    position: absolute;
+    top: 1px;
+    width: 257px;
+}
+
+.friendnav-recommend-text {
+    align-items: flex-start;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    position: relative;
+    top: 18px;
+}
+
+.friendnav-all-text-wrapper {
+    height: auto;
+    right: 0px;
+    position: absolute;
+    top: 1px;
+    width: 134px;
+}
+
+.friendnav-all-text {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 13.6px;
+    font-weight: 700;
+    left: 6px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 17px;
+    white-space: nowrap;
+}
+
+.friendnav-item-div {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    position: absolute;
+    top: 175px;
+}
+
+.friendnav-item {
+    padding: 10px 30px 10px 30px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.friendnav-item-list {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.friendnav-image-wrapper {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.friendnav-following-btn {
+    background-color: #cbcaca;
+    width: 70px;
+    font-family: "Inter", Helvetica;
+    font-size: 13.6px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.friendnav-follow-btn {
+    background-color: #00a3ff;
+    width: 70px;
+    font-family: "Inter", Helvetica;
+    font-size: 13.6px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+    cursor: pointer;
+}

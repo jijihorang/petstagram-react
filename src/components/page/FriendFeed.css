@@ -1,0 +1,178 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.friendfeed-frame {
+    top: 40px;
+    left: 140px;
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.friendfeed-user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+}
+
+.friendfeed-user-avatar img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 110px;
+    margin-left: 80px;
+}
+
+.friendfeed-user-main {
+    flex-grow: 0.1;
+}
+
+.friendfeed-user-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.friendfeed-user-email {
+    font-size: 24px;
+}
+
+.friendfeed-user-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.friendfeed-follow-btn.following,
+.friendfeed-dm-btn,
+.friendfeed-more-btn {
+    width: auto;
+    height: auto;
+    padding: 0px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: rgb(239, 239, 239);
+    color: black;
+}
+
+.friendfeed-follow-btn {
+    width: auto;
+    height: auto;
+    padding: 0px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: rgb(65, 147, 239);
+    color: white;
+}
+.friendfeed-unban-btn {
+    width: auto;
+    height: auto;
+    padding: 0px 40px;
+    font-size: 20px;
+    font-weight: 400;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: rgb(65, 147, 239);
+    color: white;
+}
+
+.friendfeed-more-btn {
+    background-color: transparent;
+    width: auto;
+    height: auto;
+    padding: 5px 5px;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: black;
+}
+.friendfeed-more-img {
+    width: auto;
+    height: 30px;
+    cursor: pointer;
+}
+
+.friendfeed-user-stats {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 50px;
+}
+.friendfeed-user-stat-post {
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+}
+
+.friendfeed-user-stat {
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.friendfeed-stat-number {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.friendfeed-stat-label {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.friendfeed-user-bio {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.friendfeed-user-profile {
+    font-weight: bold;
+}
+
+.friendfeed-container {
+    display: flex;
+    justify-content: center;
+}
+
+.friendfeed-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.friendfeed-grid-item {
+    width: 100%;
+    padding-bottom: 100%; /* 1:1 Aspect Ratio */
+    position: relative;
+    overflow: hidden;
+}
+
+.friendfeed-grid-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

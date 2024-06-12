@@ -1,0 +1,25 @@
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* 화면 전체 너비 */
+    height: 100vh; /* 화면 전체 높이 */
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 555555;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-img {
+    width: 300px; 
+    height: 300px;
+}

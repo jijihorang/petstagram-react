@@ -1,0 +1,15 @@
+export const reportOptions = [
+    { label: "스팸" },
+    { label: "나체 이미지 또는 성적 행위" },
+    { label: "혐오 발언 또는 상징" },
+    { label: "폭력 또는 위험한 단체" },
+    { label: "불법 또는 규제 상품 판매" },
+    { label: "따돌림 또는 괴롭힘" },
+    { label: "지식재산권 침해" },
+    { label: "자살 또는 자해" },
+    { label: "섭식 장애" },
+    { label: "사기 또는 거짓" },
+    { label: "약물" },
+    { label: "거짓 정보" },
+    { label: "마음에 들지 않습니다" },
+];

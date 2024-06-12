@@ -1,0 +1,135 @@
+.ipad-frame {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 560px;
+    height: 624px;
+    background-color: #000;
+    border-radius: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    z-index: 188;
+}
+
+.webcam-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.webcam {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.webcam-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.webcam-top-bar {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: #fff;
+    z-index: 10;
+}
+
+.webcam-top-bar button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.webcam-bottom-bar {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.webcam-capture-button {
+    background-color: #fff;
+    border: 5px solid #000;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.webcam-capture-button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.1);
+}
+
+.webcam-slide-buttons {
+    position: absolute;
+    bottom: -10px;
+    right: 40px;
+    width: 60px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+
+.slick-slider {
+    width: 100%;
+}
+
+.slick-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.webcam-slide-button {
+    background-color: #fff;
+    border: 2px solid #000;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.2s;
+    overflow: hidden;
+    line-height: 60px;
+}
+
+.webcam-slide-button.active {
+    background-color: #000;
+    color: #fff;
+}
+
+.webcam-slide-button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.1);
+}
+
+.filter-image {
+    width: 55px;
+    height: 60px;
+    object-fit: contain;
+}

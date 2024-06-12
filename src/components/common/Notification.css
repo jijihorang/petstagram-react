@@ -1,0 +1,114 @@
+.notification-container {
+    background-color: #fff;
+    position: fixed;
+    left: 80px;
+    top: 0;
+    height: 100vh;
+    width: 470px;
+    z-index: 20;
+    border-right: 1px solid rgb(237, 237, 237);
+    border-left: 1px solid rgb(237, 237, 237);
+    border-radius: 0 20px;
+    box-shadow: 10px 0 10px -5px rgba(0, 0, 0, 0.3);
+    z-index: 880;
+    overflow-y: auto;
+}
+
+.notification-title {
+    padding: 30px 0 0 30px;
+}
+
+.notification-container h2 {
+    font-weight: 900;
+}
+
+.notification-recent {
+    border-bottom: 1px solid rgb(237, 237, 237);
+}
+
+.notification-date {
+    padding: 20px 0 0 32px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgb(237, 237, 237);
+}
+.notification-date:first-child {
+    border-top: none;
+}
+
+.notification-list {
+    padding: 10px 30px 10px 30px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.notification-list:hover {
+    background-color: rgb(250, 250, 250);
+}
+
+.notification-type {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.notification-list-wrapper {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.notification-profile-image {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.notification-regtime {
+    margin-left: 5px;
+    color: rgb(115, 115, 115);
+}
+
+.notification-comment {
+    margin-left: 10px;
+    max-width: 300px;
+}
+
+.notification-post-image-wrapper {
+    margin-left: auto;
+}
+
+.notification-post-image {
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+}
+
+.notification-like {
+    margin-left: 10px;
+    max-width: 300px;
+}
+
+.notification-follow {
+    margin-left: 10px;
+    max-width: 230px;
+}
+
+.notification-follow-btn {
+    cursor: pointer;
+}
+
+.notification-from-user {
+    cursor: pointer;
+}

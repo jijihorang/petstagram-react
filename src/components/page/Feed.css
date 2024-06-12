@@ -1,0 +1,226 @@
+.feed {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 794px;
+    margin: 0 auto;
+    position: relative;
+    height: auto;
+}
+
+.feed-frame {
+    left: 50px;
+    position: relative;
+    top: 30px;
+    width: 560px;
+    height: 1000px;
+}
+
+.feed-post-photo {
+    background-color: #d9d9d9;
+    height: 624px;
+    left: 0;
+    position: absolute;
+    top: 64px;
+    width: 560px;
+}
+
+.feed-info {
+    position: absolute;
+    width: 560px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.feed-user-info {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    gap: 10px; /* 요소들 사이에 15px 간격 추가 */
+}
+
+.feed-profile-img {
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.feed-writer-name {
+    color: #000000;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+    margin-bottom: 20px;
+}
+
+.feed-writer-date {
+    color: rgb(115, 115, 115);
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+    margin-bottom: 20px;
+}
+
+.feed-user-follow {
+    font-family: "Inter-Bold", Helvetica;
+    width: auto;
+    border: none;
+    background-color: white;
+    color: #00a3ff;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.feed-user-following {
+    font-family: "Inter-Bold", Helvetica;
+    width: auto;
+    border: none;
+    background-color: white;
+    color: #00a3ff;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.feed-more {
+    margin-bottom: 10px;
+}
+
+.feed-more-btn {   
+    background-color: white !important;
+    border: none;
+    cursor: pointer;
+}
+
+.feed-more-img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.feed-active {
+    height: 54px;
+    left: 0;
+    position: absolute;
+    top: 688px;
+    width: 502px;
+}
+
+.feed-active-btn {
+    align-items: flex-start;
+    display: inline-flex;
+    gap: 17px;
+    left: 0;
+    position: absolute;
+    top: 15px;
+}
+
+.bookmark-img {
+    height: 24px;
+    left: 536px;
+    position: absolute;
+    top: 16px;
+    width: 24px;
+}
+
+.heart_img.liked {
+    width: 24px;
+    height: 24px; 
+}
+
+.feed-post-info {
+    align-items: flex-start;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 7px;
+    left: 0;
+    position: absolute;
+    top: 742px;
+    width: 560px;
+}
+
+.feed-heart-count {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 15.3px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-top: -1px;
+    position: relative;
+    width: fit-content;
+}
+
+.feed-post-content {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 13.8px;
+    height: auto;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    width: 560px;
+}
+
+.feed-post-more {
+    color: rgb(114, 114, 114);
+}
+
+.feed-comment-more {
+    color: rgb(114, 114, 114);
+    font-family: "Inter", Helvetica;
+    font-size: 15.3px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    width: auto;
+    margin-bottom: -10px;
+}
+
+.feed-comment {
+    border-bottom: 1px solid rgb(214, 214, 214);
+    width: 100%;
+    display: flex;
+    justify-content: space-between !important;
+}
+
+.feed-comment-input {
+    color: rgb(114, 114, 114);
+    font-family: "Inter", Helvetica;
+    font-size: 15.3px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    cursor: pointer;
+    border: none !important;
+    outline: none !important;
+    width: 100% !important;
+}
+
+.feed-comment-regi {
+    color: rgb(65, 147, 239);
+    font-size: 15.3px;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: end;
+    width: 10%;
+}
+
+@media (max-width: 1000px) {
+    .feed {
+        width: calc(100% - 30px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

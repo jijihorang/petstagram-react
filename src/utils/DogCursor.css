@@ -1,0 +1,13 @@
+body {
+    cursor: none;
+}
+.custom-cursor {
+    position: absolute;
+    width: 55px; 
+    height: 55px; 
+    background: url('/image/dogcursor.png') no-repeat center center;
+    background-size: contain;
+    pointer-events: none; 
+    z-index: 9999999999; 
+    transform: translate(-16px, -16px);; 
+}

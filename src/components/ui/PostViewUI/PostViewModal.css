@@ -1,0 +1,423 @@
+.postview-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.postview-modal-container {
+    background-color: white;
+    width: 90%;
+    max-width: 1300px;
+    height: 90%;
+    max-height: 910px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.postview-content {
+    display: flex;
+    flex-direction: row;
+    height: 100%; 
+}
+
+.postview-img-section {
+    background-color: #d9d9d9;
+    flex: 3; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-height: 100%;
+    overflow: hidden;
+    border-right: 1px solid #d9d9d9; 
+}
+
+.postview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.postview-details-section {
+    background-color: #ffffff;
+    flex: 2; 
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.postview-header-section {
+    height: 69px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid #d9d9d9;
+    box-sizing: border-box;
+}
+
+.postview-profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.postview-username {
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 17px;
+    font-weight: 700;
+    color: #000000;
+    margin-left: 10px; 
+    flex: 1;
+}
+
+.postview-more-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.postview-body-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.postview-content-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.postview-content-profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #d9d9d9;
+}
+
+.postview-content-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.postview-content-username-caption {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.postview-content-username {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.postview-caption {
+    flex: 1;
+    font-size: 12.5px;
+}
+
+.postview-content-date {
+    color: gray;
+    font-size: 12px;
+}
+
+.postview-comments-section {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.postview-comments {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+    margin-top: 15px;
+}
+
+.postview-comments-profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #d9d9d9;
+}
+
+.postview-comments-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.postview-comments-header {
+    display: flex;
+    align-items: center;
+}
+
+.postview-comments-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.postview-comments-content {
+    flex: 1;
+    font-size: 12.5px;
+}
+
+.postview-comments-footer {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: gray;
+}
+
+.postview-comments-date {
+    margin-right: 10px; 
+    
+}
+
+.postview-comments-likes {
+    margin-right: 10px;
+}
+
+.postview-comments-reply {
+    cursor: pointer;
+}
+
+.postview-comments-more-icon {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.postview {
+    margin-right: 10px;
+}
+
+.postview-heart {
+    width: 12px;
+    height: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.postview-toggle-replies-line-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.postview-toggle-replies {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: gray;
+    font-size: 12px;
+    margin-left: 50px; /* 필요에 따라 조정 */
+}
+
+.postview-toggle-replies-line-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.postview-reply-comment {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 10px;
+    margin-left: 40px; /* 댓글 대비 들여쓰기 */
+}
+
+.postview-reply-comments-profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.postview-reply-comments-details {
+    flex: 1;
+}
+
+.postview-reply-comments-header {
+    display: flex;
+    align-items: center;
+}
+
+.postview-reply-comments-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.postview-reply-comments-content {
+    font-size: 12.5px;
+}
+
+.postview-reply-comments-footer {
+    display: flex;
+    align-items: center;
+}
+
+.postview-reply-comments-footer .postview-reply-comments-date {
+    margin-right: 10px;
+    color: gray;
+    font-size: 12px;
+}
+
+.postview-reply-comments-footer .postview-reply-comments-likes {
+    color: gray;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.postview-reply-comments-footer .postview-comments-reply {
+    color: gray;
+    font-size: 12px;
+}
+
+.postview-reply-comments-more-icon {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.postview-image-section {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.postview-icons-left {
+    display: flex;
+    align-items: center;
+}
+
+.postview-like-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+}
+
+.postview-comment-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px; 
+}
+
+.postview-mark-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.postview-likes-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+}
+
+.postview-likes-info {
+    display: flex;
+    align-items: center;
+}
+
+.postview-likes-profile-img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: #d9d9d9;
+}
+
+.postview-likes-text {
+    font-size: 14px;
+}
+
+.postview-likes-date {
+    color: gray;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.postview-likes-input-section {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    border-top: 1px solid #d9d9d9;
+    padding-top: 10px;
+}
+
+.postview-likes-input-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.postview-likes-form {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.postview-likes-input {
+    flex: 1;
+    border: none;
+    outline: none;
+}
+
+.postview-likes-post {
+    color: #3897f0;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    background-color: #ffffff;
+    border: none;
+    white-space: nowrap;
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 768px) {
+    .modal-container {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        max-width: none;
+        max-height: none;
+    }
+
+    .postview-content {
+        flex-direction: column;
+    }
+
+    .postview-img-section,
+    .postview-details-section {
+        width: 100%; /* 작은 화면에서는 전체 너비를 사용 */
+        border-right: none; /* 작은 화면에서는 경계를 제거 */
+    }
+
+    .postview-img-section {
+        border-bottom: 1px solid #d9d9d9; /* 작은 화면에서는 아래 경계 추가 */
+    }
+}
