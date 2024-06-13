@@ -211,14 +211,9 @@ const FeedItem = ({
                                 alt="프로필"
                             />
                         </div>
-                        <div className="feed-user-details">
                             <div className="feed-writer-name">
                                 {post.email}
                             </div>
-                            <div className="feed-writer-location">
-                                {post.location}
-                            </div>
-                        </div>  
                         <div>
                             <div className="feed-writer-date">
                                 {"· " + uploadPostTime + " ·"}
