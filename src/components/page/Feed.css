@@ -55,7 +55,15 @@
     letter-spacing: 0;
     line-height: normal;
     white-space: nowrap;
-    margin-bottom: 20px;
+    margin-bottom: 3px; /* 이메일과 위치 간의 간격을 조정 */
+}
+
+.feed-writer-location {
+    font-size: 14px;
+    color: #8e8e8e;
+    font-family: "Inter-Regular", Helvetica;
+    white-space: nowrap;
+    line-height: normal;
 }
 
 .feed-writer-date {

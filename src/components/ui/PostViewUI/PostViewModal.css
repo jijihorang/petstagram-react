@@ -77,21 +77,31 @@
     border-radius: 50%;
 }
 
+.postview-username-location {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px; /* 프로필 이미지와의 간격 조정 */
+}
+
 .postview-username {
     font-family: "Inter-Bold", Helvetica;
     font-size: 17px;
     font-weight: 700;
     color: #000000;
-    margin-left: 10px; 
-    flex: 1;
+}
+
+.postview-location {
+    font-size: 13px;
+    color: #8e8e8e;
+    margin-top: 3px;
 }
 
 .postview-more-icon {
     width: 20px;
     height: 20px;
     cursor: pointer;
+    margin-left: auto; /* 아이콘을 오른쪽 끝으로 밀기 */
 }
-
 .postview-body-section {
     flex: 1;
     display: flex;

@@ -17,6 +17,8 @@ import BanReportModal from "../ui/BanReportModal";
 import icons from "../../assets/ImageList";
 import GetRelativeTime from "../../utils/GetRelativeTime";
 
+import KakaoShare from "../ui/kakaoshare/KakaoShare";
+
 const Feed = () => {
     const { profileInfo } = useUser();
     const { postList = [], deletePost } = usePost();
@@ -174,10 +176,7 @@ const FeedItem = ({
                 {
                     label: "공유",
                     className: "moreoption-share",
-                    onClick: () => {
-                        console.log("카카오톡 api 공유 추후 작성");
-                        setIsMoreModalOpen(false);
-                    },
+                    onClick: () => setIsMoreModalOpen(false),
                 },
                 {
                     label: isFollowing(writerId)
@@ -212,9 +211,14 @@ const FeedItem = ({
                                 alt="프로필"
                             />
                         </div>
-                        <div>
-                            <div className="feed-writer-name">{post.email}</div>
-                        </div>
+                        <div className="feed-user-details">
+                            <div className="feed-writer-name">
+                                {post.email}
+                            </div>
+                            <div className="feed-writer-location">
+                                {post.location}
+                            </div>
+                        </div>  
                         <div>
                             <div className="feed-writer-date">
                                 {"· " + uploadPostTime + " ·"}
@@ -245,6 +249,7 @@ const FeedItem = ({
                                 </button>
                             ))}
                     </div>
+                    
 
                     <div className="feed-more">
                         <button
@@ -289,11 +294,7 @@ const FeedItem = ({
                             }
                             onClick={handleLikeClick}
                         />
-                        <img
-                            className="share_img"
-                            alt="공유"
-                            src={icons.postShareIcon}
-                        />
+                        <KakaoShare post={post} />  {/* KakaoShare 컴포넌트 사용 */}
                         <img
                             className="comment_img"
                             alt="댓글"

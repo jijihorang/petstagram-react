@@ -1,23 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-const KakaoMapSearch = ({ keyword, setKeyword, searchPlaces }) => {
-    return (
-        <Wrapper>
-            <input
-                type="text"
-                id="keyword"
-                placeholder="검색어를 입력하세요"
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
-            />
-            <button onClick={() => searchPlaces(keyword)}>검색</button>
-        </Wrapper>
-    );
-};
-
-export default KakaoMapSearch;
-
 const Wrapper = styled.div`
     display: flex;
     margin-bottom: 20px;
@@ -41,3 +24,21 @@ const Wrapper = styled.div`
         border-radius: 0 5px 5px 0;
     }
 `;
+
+const KakaoMapSearch = ({ keyword, setKeyword, searchPlaces }) => {
+    return (
+        <Wrapper>
+            <input
+                type="text"
+                id="keyword"
+                placeholder="검색어를 입력하세요"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+            />
+            <button onClick={() => searchPlaces(keyword)}>검색</button>
+        </Wrapper>
+    );
+};
+
+export default KakaoMapSearch;
+

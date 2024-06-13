@@ -164,8 +164,13 @@ const PostViewModal = ({ post, deletePost, onClose, modalType }) => {
                                     alt=""
                                     className="postview-profile-img"
                                 />
-                                <div className="postview-username">
-                                    {currentPost.email}
+                              <div className="postview-username-location">
+                                    <div className="postview-username">
+                                        {currentPost.email}
+                                    </div>
+                                    <div className="postview-location">
+                                        {currentPost.location}
+                                    </div>
                                 </div>
                                 <img
                                     src={icons.moreIcon}

@@ -1,6 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 
+const KeywordListWrapper = styled.div`
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+`;
+
+const KeywordItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+`;
+
+const KeywordImage = styled.img`
+    width: 55px;
+    height: 55px;
+    margin-bottom: 10px;
+`;
+
+
 const KEYWORD_LIST = [
     { id: 1, value: "애견 카페", image: "../src/assets/kakao/pet-coffee.png" },
     { id: 2, value: "동물 병원", image: "../src/assets/kakao/pet-hospital.png" },
@@ -21,21 +41,3 @@ const KakaoMapKeyword = ({ handleKeywordClick }) => (
 
 export default KakaoMapKeyword;
 
-const KeywordListWrapper = styled.div`
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-`;
-
-const KeywordItem = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-`;
-
-const KeywordImage = styled.img`
-    width: 55px;
-    height: 55px;
-    margin-bottom: 10px;
-`;

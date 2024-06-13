@@ -54,7 +54,7 @@ const ListHomePage = styled.a`
 // 장소 리스트 항목 생성 함수
 const KakaoMapListItem = ({ place, index, setSelectedAddress, onClose }) => {
     const handlePlaceNameDoubleClick = (place) => {
-        setSelectedAddress(place.road_address_name);
+        setSelectedAddress(place.place_name);
         onClose(); // 모달 닫기
     };
 

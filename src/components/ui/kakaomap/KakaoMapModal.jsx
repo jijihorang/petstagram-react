@@ -36,7 +36,7 @@ const KakaoMapModal = ({ onClose, setSelectedAddress }) => {
                     map.setCenter(new window.kakao.maps.LatLng(lat, lng));
                 });
             } else {
-                alert("Geolocation을 사용할 수 없습니다.");
+                alert("현재위치 인식 불가");
             }
         }
     }, [map]);
@@ -133,7 +133,7 @@ const KakaoMapModal = ({ onClose, setSelectedAddress }) => {
 
             // 마커에 이벤트 리스너 추가 (마커 클릭 시 장소 선택)
             window.kakao.maps.event.addListener(marker, 'click', () => {
-                setSelectedAddress(place.road_address_name);
+                setSelectedAddress(place.place_name);
                 onClose();
             });
 
@@ -202,7 +202,7 @@ const KakaoMapModal = ({ onClose, setSelectedAddress }) => {
             // 같은 키워드를 클릭했을 때 검색 결과 초기화
             setState(prev => ({ ...prev, places: [], keyword: "" }));
         } else {
-            setState(prev => ({ ...prev, keyword }));
+            setState(prev => ({ ...prev, keyword })); // 검색 결과 유지
             searchPlaces(keyword);
         }
     };
