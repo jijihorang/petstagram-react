@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+src/components/hook/useFollowCounts.jsx
+.gitignore
+package-lock.json
+package.json

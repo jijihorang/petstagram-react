@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
     const fetchProfileInfo = useCallback(async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await UserService.getYourProfile(token);
+            const response = await UserService.getMyProfile(token);
             const profileWithImageUrl = {
                 ...response,
                 profileImageUrl: getProfileImageUrl(response.profileImage),

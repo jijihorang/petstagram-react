@@ -1,28 +1,33 @@
+
 import { useState, useEffect, useCallback } from "react";
 import UserService from "../service/UserService";
+import useUser from "./useUser";
 
 const useReporting = () => {
+    const {  isLoggedIn } = useUser();
     const [bannedUsers, setBannedUsers] = useState([]);
     const [bannedMe, setBannedMe] = useState([]);
 
     /* 신고 회원 목록 조회 */
     const fetchBannedUsers = useCallback(async () => {
+        if (!isLoggedIn) return;
         try {
             const banned = await UserService.getBannedUsers();
             setBannedUsers(banned);
         } catch (error) {
             console.error("신고한 회원 목록 조회 오류", error);
         }
-    }, []);
+    }, [isLoggedIn]);
 
     const fetchBannedMe = useCallback(async () => {
+        if (!isLoggedIn) return;
         try {
             const bannedMeList = await UserService.getBannedMe();
             setBannedMe(bannedMeList);
         } catch (error) {
             console.error("자신을 신고한 회원 목록 조회 오류", error);
         }
-    }, []);
+    }, [isLoggedIn]);
 
     /* 신고 핸들러 (차단) */
     const handleReportBanned = useCallback(

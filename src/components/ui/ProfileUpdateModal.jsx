@@ -110,7 +110,7 @@ const ProfileUpdateModal = ({
 
         try {
             const token = localStorage.getItem("token");
-            await UserService.updateUser(profileInfo.id, formData, token);
+            await UserService.editUser(profileInfo.id, formData, token);
             await fetchProfileInfo();
             onClose();
         } catch (error) {

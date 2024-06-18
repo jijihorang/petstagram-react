@@ -19,3 +19,14 @@
   display: flex;
   flex-direction: row;
 }
+
+/* 지우지 말 것 */
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #7ab3f4;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

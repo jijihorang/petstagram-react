@@ -86,6 +86,7 @@ const FeedItem = ({
     const [commentText, setCommentText] = useState("");
     const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
     const [isBanReportModalOpen, setIsBanReportModalOpen] = useState(false);
+    const [showFullContent, setShowFullContent] = useState(false);
 
     const getImageUrl = (image) => {
         return `http://localhost:8088/uploads/${image.imageUrl}`;
@@ -211,9 +212,9 @@ const FeedItem = ({
                                 alt="프로필"
                             />
                         </div>
-                            <div className="feed-writer-name">
-                                {post.email}
-                            </div>
+                        <div className="feed-writer-name">
+                            {post.email}
+                        </div>
                         <div>
                             <div className="feed-writer-date">
                                 {"· " + uploadPostTime + " ·"}
@@ -289,12 +290,12 @@ const FeedItem = ({
                             }
                             onClick={handleLikeClick}
                         />
-                        <KakaoShare post={post} />  {/* KakaoShare 컴포넌트 사용 */}
-                        <img
+                         <img
                             className="comment_img"
                             alt="댓글"
                             src={icons.commentIcon}
                         />
+                        <KakaoShare post={post} />  {/* KakaoShare 컴포넌트 사용 */}
                     </div>
                     <img
                         className="bookmark-img"
@@ -308,8 +309,20 @@ const FeedItem = ({
                     </div>
                     <div>
                         <p className="feed-post-content">
-                            {post.postContent}
-                            <span className="feed-post-more"> 더 보기</span>
+                            <span className="post-email-content-more">{post.email} </span>
+                            <span className="post-content-more">
+                                {showFullContent || post.postContent.length <= 15
+                                    ? post.postContent
+                                    : post.postContent.substring(0, 15) + "..."}
+                            </span>
+                            {post.postContent.length > 15 && !showFullContent && (
+                                <span
+                                    className="feed-post-more"
+                                    onClick={() => setShowFullContent(true)}
+                                >
+                                    더 보기
+                                </span>
+                            )}
                         </p>
                     </div>
 

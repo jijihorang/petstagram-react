@@ -28,7 +28,7 @@ import shareIcon from "/src/assets/myfeed/myfeed-share.png";
 /* Webcam */
 import transform from "/src/assets/camera/transform.png";
 import kapibara from "/src/assets/camera/kapibara.png";
-import dogFilter from "/src/assets/camera/dog-filter.png"
+import dogFilter from "/src/assets/camera/dog-filter.png";
 import dogEars from "/src/assets/camera/dog-ears.png";
 import dogNose from "/src/assets/camera/dog-nose.png";
 import chilbok from "/src/assets/camera/chilbok.png";
@@ -44,6 +44,9 @@ import lineIcon from "./postviewmodal/postview-line.png";
 import smileIcon from "./postmodal/smile.png";
 import locationIcon from "./postmodal/location.png";
 import underArrowIcon from "./postmodal/under.png";
+
+/* FindPassword */
+import lockIcon from "./find-password.png";
 
 const icons = {
     // HomeNav
@@ -92,6 +95,9 @@ const icons = {
     smileIcon,
     locationIcon,
     underArrowIcon,
+
+    // FindPassword
+    lockIcon,
 };
 
 export default icons;

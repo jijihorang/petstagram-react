@@ -203,6 +203,10 @@
     box-sizing: border-box;
 }
 
+.post-address {
+    margin-left: 15px;
+}
+
 .post-frame .post-option .post-text-wrapper-6 {
     font-family: "Inter-Bold", Helvetica;
     font-size: 18.7px;

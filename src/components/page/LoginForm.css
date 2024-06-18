@@ -4,6 +4,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+  
 }
 
 .login-form {
@@ -11,33 +13,48 @@
     background-color: #fff;
     padding: 40px;
     border-radius: 5px;
+    max-width: 380px;
+    width: 100%;
 }
 
-.login-form h1 {
+.login-header {
+    margin-bottom: 20px;
     text-align: center;
     margin-bottom: 30px;
 }
 
-.form-group {
+.login-form-group {
     margin-bottom: 20px;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 270px;
+.login-input-email,
+.login-input-password{
+    width: 100%;
+    max-width: 320px;
     padding: 10px;
     border: 1px solid #dbdbdb;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
-button {
+.login-submit{
     width: 100%;
+    max-width: 320px;
     padding: 10px;
-    background-color: #7ab3f4;
-    color: #fff;
     border: none;
-    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 4px;
     cursor: pointer;
+    box-sizing: border-box;
+    background-color: #7ab3f4;
+}
+
+.login-error-message{
+    margin-top: 10px;
+    text-align: center;
+    font-size: 15px;
+    color: #ff0000;
 }
 
 .or-separator {
@@ -82,8 +99,10 @@ a {
 }
 
 .signup-section {
-    margin-top: 10px; 
+    margin-top: 10px;
     text-align: center;
+    width: 100%;
+    max-width: 370px;
 }
 
 .signup-box {
@@ -91,7 +110,6 @@ a {
     background-color: #fff;
     padding: 10px;
     border-radius: 5px;
-    width: 350px;
     margin: 0 auto;
 }
 
@@ -105,12 +123,3 @@ a {
 .signup-link:hover {
     color: #4193ef;
 }
-
-/* 미디어 쿼리 */
-@media (min-width: 1500px) {
-    .login-container,
-    .slide {
-        margin-top: 210px; 
-    }
-}
-

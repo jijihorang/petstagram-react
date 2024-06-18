@@ -19,6 +19,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 
 /* 컴포넌트 */
 import LoginForm from "./components/page/LoginForm";
+import FindPassword from "./components/page/FindPassword";
 import SignUp from "./components/page/SignUp";
 import Feed from "./components/page/Feed";
 import FriendFeed from "./components/page/FriendFeed";
@@ -64,6 +65,12 @@ const AppContent = () => {
                         ) : (
                             <SignUp setIsLoggedIn={setIsLoggedIn} />
                         )
+                    }
+                />
+                <Route
+                    path="/find-password"
+                    element={
+                        isLoggedIn ? <Navigate to="/" /> : <FindPassword />
                     }
                 />
                 <Route
@@ -176,6 +183,7 @@ const AppContent = () => {
                         )
                     }
                 />
+                
             </Routes>
         </Router>
     );

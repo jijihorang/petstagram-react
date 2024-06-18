@@ -22,14 +22,18 @@ export const AllUserProvider = ({ children }) => {
 
     const fetchAllUsers = useCallback(async () => {
         try {
-            const token = localStorage.getItem("token");
-            if (!token) throw new Error("로그인이 필요합니다.");
-            const users = await UserService.getAllUsers(token);
+            let users;
+            if (isLoggedIn) {
+                const token = localStorage.getItem("token");
+                if (!token) throw new Error("로그인이 필요합니다.");
+                users = await UserService.getAllUsers(token);
+            } else {
+                users = await UserService.getAllUsersWithoutAuth();
+            }
 
             // 자신을 차단한 사용자를 필터링
             const bannedMeIds = bannedMe.map(user => user.reporterUserId);
             const filteredUsers = users.filter(user => !bannedMeIds.includes(user.id));
-
 
             const usersWithProfileImageUrls = filteredUsers.map((user) => ({
                 ...user,
@@ -42,7 +46,7 @@ export const AllUserProvider = ({ children }) => {
         } finally {
             setLoading(false);
         }
-    }, [bannedMe]);
+    }, [bannedMe, isLoggedIn]);
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -50,6 +54,11 @@ export const AllUserProvider = ({ children }) => {
             fetchAllUsers();
         }
     }, [isLoggedIn, fetchAllUsers]);
+
+    useEffect(() => {
+        setLoading(true);
+        fetchAllUsers();
+    }, [fetchAllUsers]);
 
     return (
         <AllUserContext.Provider

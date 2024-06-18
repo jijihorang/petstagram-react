@@ -25,7 +25,7 @@ class UserService {
     }
 
     // 마이페이지
-    static async getYourProfile(token) {
+    static async getMyProfile(token) {
         const response = await axios.get(
             `${UserService.BASE_URL}/user/profile`,
             {
@@ -35,8 +35,54 @@ class UserService {
         return response.data;
     }
 
-    // 회원 수정
-    static async updateUser(userId, formData, token) {
+    // 인증 코드 전송
+    static async sendVerificationCode(phone) {
+        const response = await axios.post(
+            `${UserService.BASE_URL}/sms/send-one`,
+            { to: phone },
+            { withCredentials: true }
+        );
+        return response;
+    }
+
+
+    // 회원 비밀번호 수정
+    static async updatePassword(userId, newPassword, token = null) {
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+        const response = await axios.put(
+            `${UserService.BASE_URL}/user/update/password/${userId}`,
+            { password: newPassword },
+            { headers }
+        );
+        return response.data;
+    }
+
+    // 회원 Email 수정
+    static async updateEmail(userId, newEmail, token) {
+        const response = await axios.put(
+            `${UserService.BASE_URL}/user/update/email/${userId}`,
+            { email: newEmail },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+        return response.data;
+    }
+
+    // 회원 Name 수정
+    static async updateName(userId, newName, token) {
+        const response = await axios.put(
+            `${UserService.BASE_URL}/user/update/name/${userId}`,
+            { name: newName },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+        return response.data;
+    }
+
+    // 회원 프로필 수정
+    static async editUser(userId, formData, token) {
         const response = await axios.put(
             `${UserService.BASE_URL}/user/edit/${userId}`,
             formData,
@@ -72,18 +118,16 @@ class UserService {
         return response.data;
     }
 
-    // 회원 한명 조회
-    static async getUserById(userId, token) {
+    /* 비밀번호 찾기를 위한 모든 회원 정보 조회 */
+    static async getAllUsersWithoutAuth() {
         const response = await axios.get(
-            `${UserService.BASE_URL}/user/get/${userId}`,
-            {
-                headers: { Authorization: `Bearer ${token}` },
-            }
+            `${UserService.BASE_URL}/user/getAllUsers`
         );
         return response.data;
     }
 
     /* ****** 팔로우, 팔로잉 서비스 ****** */
+
     // 팔로우
     static async follow(toUserId, token) {
         const response = await axios.post(
@@ -183,25 +227,26 @@ class UserService {
     static async getBannedUsers() {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-            `${this.BASE_URL}/report/banned-users`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+            `${this.BASE_URL}/report/banned-users`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
         return response.data;
     }
 
     // 자신을 신고한 회원 목록
     static async getBannedMe() {
         const token = localStorage.getItem("token");
-        const response = await axios.get(
-            `${this.BASE_URL}/report/banned-me`, {
+        const response = await axios.get(`${this.BASE_URL}/report/banned-me`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
         return response.data;
-    } 
+    }
 
     // 특정 회원 신고
     static async reportingBannedUser(formData, reportedUserId) {
@@ -228,16 +273,6 @@ class UserService {
                     Authorization: `Bearer ${token}`,
                 },
             }
-        );
-        return response.data;
-    }
-
-    // 특정 회원 누적 신고 조회
-    static async reportingBannedCount(userId) {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-            `${this.BASE_URL}/report/bannedCount/${userId}`,
-            { headers: { Authorization: `Bearer ${token}` } }
         );
         return response.data;
     }

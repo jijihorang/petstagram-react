@@ -170,8 +170,20 @@
     width: 560px;
 }
 
+.post-email-content-more {
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.post-content-more {
+    font-size: 13.5px;
+}
+
 .feed-post-more {
     color: rgb(114, 114, 114);
+    margin-left: 5px;
+    font-size: 13px;
 }
 
 .feed-comment-more {
@@ -183,7 +195,6 @@
     line-height: normal;
     position: relative;
     width: auto;
-    margin-bottom: -10px;
 }
 
 .feed-comment {

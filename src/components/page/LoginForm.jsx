@@ -15,7 +15,6 @@ const LoginForm = ({ setIsLoggedIn }) => {
 
         try {
             const userData = await UserService.login(email, password);
-            console.log(userData);
             if (userData.token) {
                 localStorage.setItem("token", userData.token);
                 localStorage.setItem("role", userData.role);
@@ -26,7 +25,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
             }
         } catch (error) {
             console.log(error);
-            setError("로그인 실패", error.message);
+            setError("아이디 또는 비밀번호가 잘못되었습니다.", error.message);
             setTimeout(() => {
                 setError("");
             }, 5000);
@@ -37,14 +36,15 @@ const LoginForm = ({ setIsLoggedIn }) => {
         <>
             <div className="login-container">
                 <div className="login-form">
-                    <h1>Petstagram</h1>
+                    <h1 className="login-header">Petstagram</h1>
                     <form onSubmit={handleLogin}>
-                        <div className="form-group">
+                        <div className="login-form-group">
                             <input
                                 type="text"
                                 placeholder="전화번호, 사용자 이름 또는 이메일"
                                 value={email}
                                 onChange={(e) => setUserEmail(e.target.value)}
+                                className="login-input-email"
                             />
                         </div>
                         <div className="form-group">
@@ -53,11 +53,15 @@ const LoginForm = ({ setIsLoggedIn }) => {
                                 placeholder="비밀번호"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                className="login-input-password"
                             />
                         </div>
-                        {error && <p className="error-message">{error}</p>}
-                        <button type="submit">로그인</button>
+
+                        <button type="submit" className="login-submit">
+                            로그인
+                        </button>
                     </form>
+                    {error && <p className="login-error-message">{error}</p>}
                     <div className="or-separator">
                         <div className="line"></div>
                         <div className="or-text">또는</div>
@@ -69,18 +73,18 @@ const LoginForm = ({ setIsLoggedIn }) => {
                     </div>
 
                     <div className="forgot-password">
-                        <a href="#">비밀번호를 잊으셨나요?</a>
+                        <Link to="/find-password">비밀번호를 잊으셨나요?</Link>
                     </div>
                 </div>
-            </div>
-            <div className="signup-section">
-                <div className="signup-box">
-                    <p>
-                        계정이 없으신가요?{" "}
-                        <Link to="/signup" className="signup-link">
-                            가입하기
-                        </Link>
-                    </p>
+                <div className="signup-section">
+                    <div className="signup-box">
+                        <p>
+                            계정이 없으신가요?{" "}
+                            <Link to="/signup" className="signup-link">
+                                가입하기
+                            </Link>
+                        </p>
+                    </div>
                 </div>
             </div>
         </>

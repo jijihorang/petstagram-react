@@ -15,7 +15,7 @@ const FollowContext = createContext();
 
 export const FollowProvider = ({ children }) => {
     const { allUserProfiles } = useAllUser();
-    const { profileInfo } = useUser();
+    const { profileInfo, isLoggedIn } = useUser();
     const [followedUsers, setFollowedUsers] = useState({});
 
     const [followerList, setFollowerList] = useState([]);
@@ -35,6 +35,7 @@ export const FollowProvider = ({ children }) => {
 
     const fetchFollowStatus = useCallback(
         async (userId) => {
+            if (!isLoggedIn) return;
             try {
                 const status = await UserService.getFollowStatus(userId, token);
                 setFollowedUsers((prevState) => ({
@@ -45,7 +46,7 @@ export const FollowProvider = ({ children }) => {
                 console.error("팔로우 상태 가져오기 중 오류 발생:", error);
             }
         },
-        [token]
+        [token, isLoggedIn]
     );
 
     /* 다른 사용자들의 팔로우 상태 체크 */

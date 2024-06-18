@@ -26,6 +26,7 @@ const FriendFeed = () => {
         userFollowingList,
         fetchUserFollowerList,
         fetchUserFollowingList,
+        fetchFollowingList,
     } = useFollow();
 
     const { handleReportBanned, handleUnBanned, fetchBannedUsers, isBanned } =
@@ -57,12 +58,14 @@ const FriendFeed = () => {
             await fetchUserPosts(friendProfile.id);
             await fetchUserFollowerList(friendProfile.id);
             await fetchUserFollowingList(friendProfile.id);
+            await fetchFollowingList();
         }
     }, [
         friendProfile,
         fetchUserPosts,
         fetchUserFollowerList,
         fetchUserFollowingList,
+        fetchFollowingList,
     ]);
 
     useEffect(() => {
@@ -81,7 +84,11 @@ const FriendFeed = () => {
         if (isBannedUser) {
             setFilteredPostUserList([]);
         } else {
-            setFilteredPostUserList(postUserList);
+            setFilteredPostUserList(
+                postUserList.sort(
+                    (a, b) => new Date(b.regTime) - new Date(a.regTime)
+                )
+            );
         }
     }, [isBannedUser, postUserList]);
 
@@ -96,8 +103,10 @@ const FriendFeed = () => {
     const handleFollowClick = async () => {
         if (isFollowing(friendProfile.id)) {
             await handleUnfollow(friendProfile.id);
+            await fetchUserFollowerList(friendProfile.id);
         } else {
             await handleFollow(friendProfile.id);
+            await fetchUserFollowerList(friendProfile.id);
         }
         fetchFollowCounts();
     };
@@ -108,7 +117,8 @@ const FriendFeed = () => {
         } else {
             await handleReportBanned(friendProfile.id, "");
         }
-        fetchBannedUsers(); // 차단된 유저 목록을 다시 가져옴
+        fetchBannedUsers();
+        fetchFollowCounts();
     };
 
     const getFriendMore = () => {
