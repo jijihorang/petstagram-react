@@ -26,3 +26,8 @@ src/components/hook/useFollowCounts.jsx
 .gitignore
 package-lock.json
 package.json
+src/components/common/UploadModal.jsx
+.gitignore
+package-lock.json
+package.json
+src/components/common/UploadModal.jsx

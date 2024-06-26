@@ -1,25 +1,43 @@
-import "./UploadModal.css";
 import React, { useRef, useEffect, useState } from "react";
 import PostService from "../service/PostService";
-
 import useModal from "../hook/useModal";
 import useUser from "../hook/useUser";
 import usePost from "../hook/usePost";
-
 import Loading from "../ui/Loading";
 import DeleteConfirm from "../ui/DeleteConfirm";
 import EmojiPicker from "../ui/EmojiPicker";
 import KakaoMapModal from "../ui/kakaomap/KakaoMapModal";
+import AddHashtag from "../ui/AddHashtag/AddHashtag";
+import styled from "styled-components";
+
+const HashtagContainer = styled.div`
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+`;
+
+const Hashtag = styled.div`
+    background: #f5f5f5;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: blue;
+`;
 
 const UploadGetGallery = ({ onClose }) => {
     const { isLoggedIn, profileInfo } = useUser();
-    const { postList, setPostList, setPostSuccess } = usePost(isLoggedIn, profileInfo);
+    const { postList, setPostList, setPostSuccess } = usePost(
+        isLoggedIn,
+        profileInfo
+    );
     const { openModal, closeModal, isModalOpen } = useModal();
     const fileInputRef = useRef(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const [text, setText] = useState("");
     const maxTextLength = 2200;
-    const [selectedAddress, setSelectedAddress] = useState(""); // 추가된 상태
+    const [selectedAddress, setSelectedAddress] = useState("");
+    const [hashtags, setHashtags] = useState([]);
 
     useEffect(() => {
         document.body.style.overflow = "hidden";
@@ -55,7 +73,11 @@ const UploadGetGallery = ({ onClose }) => {
         try {
             openModal("loading");
             const file = fileInputRef.current?.files[0];
-            const postData = { postContent: text, location: selectedAddress };
+            const postData = {
+                postContent: text,
+                location: selectedAddress,
+                hashtags,
+            };
             const formData = new FormData();
             formData.append(
                 "post",
@@ -65,7 +87,7 @@ const UploadGetGallery = ({ onClose }) => {
             );
 
             if (file) {
-                const breed = await PostService.classifyImage(file);  // 변경된 부분
+                const breed = await PostService.classifyImage(file);
                 console.log("Predictions: ", breed);
 
                 formData.append("breed", breed);
@@ -87,6 +109,10 @@ const UploadGetGallery = ({ onClose }) => {
         } finally {
             closeModal("loading");
         }
+    };
+
+    const handleAddHashtag = (hashtag) => {
+        setHashtags([...hashtags, hashtag]);
     };
 
     return (
@@ -157,26 +183,47 @@ const UploadGetGallery = ({ onClose }) => {
                                 {profileInfo.email}
                             </div>
                         </div>
+
                         <div className="post-textarea-section">
                             <textarea
-                                className="post-input-wrapper"
+                                className="post-input-content"
                                 placeholder="문구를 입력하세요..."
                                 value={text}
                                 onChange={handleTextChange}
                             />
-                            <div className="post-counter">
-                                <img
-                                    className="post-uil-smile"
-                                    alt="Uil smile"
-                                    src="../src/assets/postmodal/smile.png"
-                                    onClick={() => openModal("emojiPicker")}
-                                />
-                                <div className="post-text-wrapper-5">
-                                    {text.length}/{maxTextLength}
-                                </div>
+                        </div>
+
+                        <div className="post-add-hashtag-container">
+                            <img
+                                className="post-hashtag-icon"
+                                alt="hashtag icon"
+                                src="../src/assets/postmodal/hashtag-add.png"
+                                onClick={() => openModal("addHashtag")}
+                            />
+                            <HashtagContainer>
+                                {hashtags.map((hashtag, index) => (
+                                    <Hashtag key={index}>{hashtag}</Hashtag>
+                                ))}
+                            </HashtagContainer>
+                        </div>
+
+
+                        <div className="post-counter">
+                            <img
+                                className="post-uil-smile"
+                                alt="Uil smile"
+                                src="../src/assets/postmodal/smile.png"
+                                onClick={() => openModal("emojiPicker")}
+                            />
+                            <div className="post-text-count">
+                                {text.length}/{maxTextLength}
                             </div>
                         </div>
-                        <PostOptions openModal={openModal} selectedAddress={selectedAddress} /> 
+
+                        <PostOptions
+                            openModal={openModal}
+                            selectedAddress={selectedAddress}
+                        />
                     </div>
                 </div>
             </div>
@@ -187,9 +234,15 @@ const UploadGetGallery = ({ onClose }) => {
                 <DeleteConfirm closeModal={closeModal} onClose={onClose} />
             )}
             {isModalOpen("kakaoMap") && (
-                <KakaoMapModal 
-                    onClose={() => closeModal("kakaoMap")} 
-                    setSelectedAddress={setSelectedAddress} // 주소 설정 함수 전달
+                <KakaoMapModal
+                    onClose={() => closeModal("kakaoMap")}
+                    setSelectedAddress={setSelectedAddress}
+                />
+            )}
+            {isModalOpen("addHashtag") && (
+                <AddHashtag
+                    onClose={() => closeModal("addHashtag")}
+                    onAddHashtag={handleAddHashtag}
                 />
             )}
         </div>
@@ -198,25 +251,35 @@ const UploadGetGallery = ({ onClose }) => {
 
 const PostOptions = ({ openModal, selectedAddress }) => (
     <div className="post-options">
-      {[
-        {
-          label: "위치 추가",
-          icon: "../src/assets/postmodal/location.png",
-          onClick: () => openModal("kakaoMap"),
-          showAddress: true, // 주소를 표시할 항목에 플래그 추가
-        },
-        { label: "접근성", icon: "../src/assets/postmodal/under.png", showAddress: false },
-        { label: "고급 설정", icon: "../src/assets/postmodal/under.png", showAddress: false },
-      ].map((option, index) => (
-        <div className="post-option" key={index} onClick={option.onClick}>
-          <div className="post-text-wrapper-6">
-            {option.label}
-            {option.showAddress && <span className="post-address">{selectedAddress}</span>} {/* 주소 표시 */}
-          </div>
-          <img className="post-icon" alt="Frame" src={option.icon} />
-        </div>
-      ))}
+        {[
+            {
+                label: "위치 추가",
+                icon: "../src/assets/postmodal/location.png",
+                onClick: () => openModal("kakaoMap"),
+                showAddress: true,
+            },
+            {
+                label: "접근성",
+                icon: "../src/assets/postmodal/under.png",
+                showAddress: false,
+            },
+            {
+                label: "고급 설정",
+                icon: "../src/assets/postmodal/under.png",
+                showAddress: false,
+            },
+        ].map((option, index) => (
+            <div className="post-option" key={index} onClick={option.onClick}>
+                <div className="post-text-address-input">
+                    {option.label}
+                    {option.showAddress && (
+                        <span className="post-address">{selectedAddress}</span>
+                    )}
+                </div>
+                <img className="post-icon" alt="Frame" src={option.icon} />
+            </div>
+        ))}
     </div>
-  );
+);
 
 export default UploadGetGallery;

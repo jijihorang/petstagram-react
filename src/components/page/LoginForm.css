@@ -80,16 +80,28 @@ a {
 }
 
 .facebook-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     font-size: 17px;
     font-weight: bold;
+    margin-top: 20px; /* 여백 추가 */
 }
 
-.facebook-login img {
-    width: 14px;
-    height: auto;
-    margin-right: 5px;
+.custom-facebook-button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: rgb(64, 84, 154);
 }
+
+.custom-facebook-button img {
+    margin-right: 10px;
+}
+
 
 .forgot-password {
     font-size: 13px;
@@ -123,3 +135,5 @@ a {
 .signup-link:hover {
     color: #4193ef;
 }
+
+

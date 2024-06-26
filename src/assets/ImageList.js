@@ -90,7 +90,7 @@ const icons = {
     bookMarkIcon2,
     moreIcon2,
     lineIcon,
-
+    
     // PostModal
     smileIcon,
     locationIcon,

@@ -154,12 +154,12 @@
     font-weight: 700;
     color: #000000;
 }
+
 .post-textarea-section {
     padding: 0 20px;
-    height: 40%;
 }
 
-.post-input-wrapper {
+.post-input-content {
     width: 100%;
     height: 80%;
     border: none;
@@ -169,29 +169,45 @@
     font-family: "Inter-Regular", Helvetica;
     font-size: 18px;
     color: #000000;
-    margin-bottom: 10px;
+    margin-bottom: 70px;
 }
+
+.post-add-hashtag-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+
+.post-hashtag-icon {
+    cursor: pointer;
+}
+
 .post-counter {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.post-frame .post-textarea-section .post-counter .post-uil-smile {
+.post-uil-smile {
     height: 24px;
     width: 24px;
 }
 
-.post-frame .post-textarea-section .post-counter .post-text-wrapper-5 {
+.post-text-count {
     font-family: "Inter-Regular", Helvetica;
     font-size: 13.6px;
     color: #d9d9d9;
 }
 
-.post-frame .post-options {
+.post-options {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 40px;
 }
 
 .post-option {
@@ -203,14 +219,15 @@
     box-sizing: border-box;
 }
 
-.post-address {
-    margin-left: 15px;
-}
-
-.post-frame .post-option .post-text-wrapper-6 {
+.post-text-address-input {
     font-family: "Inter-Bold", Helvetica;
     font-size: 18.7px;
     color: #000000;
+}
+
+.post-address {
+    margin-left: 15px;
+    font-size: 16px;
 }
 
 /* 미디어 쿼리 */
