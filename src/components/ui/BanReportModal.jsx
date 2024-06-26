@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import axios from "axios";
-import { reportOptions } from "../../utils/ReportingOptions";
+import Swal from "sweetalert2";
 import useReporting from "../hook/useReporting";
+import { reportOptions } from "../../utils/ReportingOptions";
 
 const ModalOverlay = styled.div`
     position: fixed;
@@ -14,7 +14,7 @@ const ModalOverlay = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 1000;
 `;
 
 const ModalContainer = styled.div`
@@ -73,12 +73,28 @@ const Option = styled.div`
     }
 `;
 
-const BanReportModal = ({ onClose, reportedUserId }) => {
+
+const BanReportModal = ({ onClose, reportedUserId, bannedUser }) => {
     const { handleReportBanned } = useReporting();
 
     const handleOptionClick = (option) => {
-        handleReportBanned(reportedUserId, option.label);
-        onClose();
+        Swal.fire({
+            title: `${bannedUser}님을 신고하시겠습니까?`,
+            text: "신고 후, 해당 사용자의 게시글을 더 이상 볼 수 없습니다.",
+            icon: "question",
+            iconColor: "red",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#aaaaaa",
+            confirmButtonText: "확인",
+            cancelButtonText: "취소",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleReportBanned(reportedUserId, option.label);
+                Swal.fire("신고 완료", "신고가 성공적으로 접수되었습니다.", "success");
+                onClose();
+            }
+        });
     };
 
     return (

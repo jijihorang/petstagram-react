@@ -6,8 +6,9 @@ body {
     width: 55px; 
     height: 55px; 
     background: url('/image/dogcursor.png') no-repeat center center;
-    background-size: contain;
+    background-size: cover;
     pointer-events: none; 
     z-index: 9999999999; 
     transform: translate(-16px, -16px);; 
+    
 }

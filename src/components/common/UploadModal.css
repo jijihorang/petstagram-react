@@ -8,9 +8,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 899;
+    z-index: 999;
     padding: 20px;
-    
 }
 
 .post-close-modal {
@@ -28,17 +27,17 @@
 .post-frame {
     background-color: #ffffff;
     border-radius: 20px;
-    height: 90%;  
-    width: 90%;  
-    max-height: 910px;  
-    max-width: 1300px;  
+    height: 90%;
+    width: 90%;
+    max-height: 910px;
+    max-width: 1300px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.post-frame .post-header {
+.post-header {
     height: 69px;
     width: 100%;
     display: flex;
@@ -47,37 +46,35 @@
     padding: 0 20px;
     border-bottom: 1px solid #d9d9d9;
     box-sizing: border-box;
-    
 }
 
-.post-frame .post-header .post-text-wrapper,
-.post-frame .post-header .post-text-wrapper-2 {
+.post-header-title,
+.post-header-upload {
     font-family: "Inter-Bold", Helvetica;
     font-size: 20.4px;
     font-weight: 700;
 }
 
-.post-frame .post-header .post-text-wrapper {
+.post-header-title {
     color: #000000;
     flex: 1;
     text-align: center;
 }
 
-.post-frame .post-header .post-text-wrapper-2 {
+.post-header-upload {
     color: #3493ed;
     margin-left: auto;
-    padding-left: 20px;
     cursor: pointer;
 }
 
-.post-frame .post-content {
+.post-content {
     display: flex;
     height: calc(100% - 69px);
 }
 
-.post-frame .post-image-section {
+.post-image-section {
     background-color: #d9d9d9;
-    width: 90%;  
+    width: 90%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -86,38 +83,41 @@
     text-align: center;
     max-height: 100%;
     overflow: hidden;
-    border-right: 1px solid #d9d9d9; 
+    border-right: 1px solid #d9d9d9;
+    gap: 15px;
 }
 
-.post-img_section img {
+.post-image-wrapper {
+    width: 100%;
+}
+
+.post-selected-image {
     object-fit: cover;
     width: 100%;
     height: 100%;
 }
 
-.post-img_section {
+.post-selected-video {
+    object-fit: cover;
+}
+
+.post-selected-video.landscape {
     width: 100%;
     height: 100%;
 }
 
-.post-image-pull {
-    margin-bottom: 20px;
+.post-selected-video.portrait {
+    width: 480px;
+    height: 100%;
 }
 
-.image_file{
+.post-image-icon {
     width: 150px;
+    margin-bottom: 5px;
 }
 
-.file_section {
-    background-color: #3493ed;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-.camera-section {
+.post-file-select,
+.post-take-picture {
     background-color: #3493ed;
     color: white;
     padding: 10px 20px;
@@ -125,9 +125,9 @@
     cursor: pointer;
 }
 
-.post-frame .post-details-section {
+.post-details-section {
     background-color: #ffffff;
-    width: 40%;  /* 텍스트 섹션의 너비를 40%로 늘림 */
+    width: 40%;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -140,7 +140,7 @@
     padding: 20px;
 }
 
-.post-frame .post-user-info .post-ellipse {
+.post-user-profile-image {
     background-color: #d9d9d9;
     border-radius: 50%;
     height: 41px;
@@ -148,18 +148,17 @@
     margin-right: 10px;
 }
 
-.post-frame .post-user-info .post-text-wrapper-3 {
+.post-user-email {
     font-family: "Inter-Bold", Helvetica;
     font-size: 13.6px;
     font-weight: 700;
     color: #000000;
 }
-
 .post-textarea-section {
     padding: 0 20px;
 }
 
-.post-input-content {
+.post-textarea-content {
     width: 100%;
     height: 80%;
     border: none;
@@ -172,32 +171,42 @@
     margin-bottom: 70px;
 }
 
+.post-textarea-content {
+    width: 100%;
+    height: 80%;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    resize: none;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 18px;
+    color: #000000;
+    margin-bottom: 30px;
+}
+
 .post-add-hashtag-container {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-left: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .post-hashtag-icon {
     cursor: pointer;
 }
 
-.post-counter {
+.post-etc-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 10px;
-    margin-right: 10px;
 }
 
-.post-uil-smile {
+.post-smile-icon {
     height: 24px;
     width: 24px;
 }
 
-.post-text-count {
+.post-content-count {
     font-family: "Inter-Regular", Helvetica;
     font-size: 13.6px;
     color: #d9d9d9;
@@ -207,7 +216,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 40px;
+    margin-top: 40%;
 }
 
 .post-option {
@@ -217,6 +226,12 @@
     padding: 10px 20px;
     border-top: 1px solid #d9d9d9;
     box-sizing: border-box;
+}
+
+.post-options-text {
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 18.7px;
+    color: #000000;
 }
 
 .post-text-address-input {
@@ -240,13 +255,47 @@
         max-height: none;
     }
 
-    .post-frame .post-image-section,
-    .post-frame .post-details-section {
-        width: 100%; /* 작은 화면에서는 전체 너비를 사용 */
-        border-right: none; /* 작은 화면에서는 경계를 제거 */
+    .post-image-section,
+    .post-details-section {
+        width: 100%; 
+        border-right: none; 
     }
 
     .post-frame .post-image-section {
-        border-bottom: 1px solid #d9d9d9; /* 작은 화면에서는 아래 경계 추가 */
+        border-bottom: 1px solid #d9d9d9; 
     }
+}
+
+/* Slick Slider */
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.post-slider-prev-btn,
+.post-slider-prev-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    color: none;
+    font-size: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    z-index: 100000;
+}
+
+.post-slider-prev-btn {
+    left: 10px;
+}
+
+.post-slider-prev-next {
+    right: 10px;
 }

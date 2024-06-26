@@ -31,3 +31,14 @@ src/components/common/UploadModal.jsx
 package-lock.json
 package.json
 src/components/common/UploadModal.jsx
+src/assets/message/bi_mic.png
+src/assets/message/material-symbols_info-outline.png
+src/assets/message/message_close.png
+src/assets/message/message_edit.png
+src/assets/message/mynaui_image.png
+src/assets/message/smile.png
+src/components/page/Feed.css
+src/components/page/Feed.jsx
+.gitignore
+package-lock.json
+package.json

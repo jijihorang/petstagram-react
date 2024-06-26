@@ -4,7 +4,6 @@ import "./LoginForm.css";
 import facebook_logo from "/src/assets/facebook.png";
 import UserService from "../service/UserService";
 
-
 const LoginForm = ({ setIsLoggedIn }) => {
     const [email, setUserEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -68,7 +67,6 @@ const LoginForm = ({ setIsLoggedIn }) => {
                         <div className="or-text">또는</div>
                         <div className="line"></div>
                     </div>
-
                     <div className="facebook-login">
                         <img src={facebook_logo} alt="Facebook 로고" />
                         <a href="#">Facebook으로 로그인</a>

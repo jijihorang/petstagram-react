@@ -24,18 +24,35 @@ class NotificationService {
             `${BASE_URL}/subscribe?userId=${userId}&token=${token}`
         );
 
+        /* 게시글 좋아요 이벤트 리스너 */
         eventSource.addEventListener("like", (event) => {
             const newNotification = JSON.parse(event.data);
             newNotification.regTime = new Date(newNotification.regTime);
             onNewNotification(newNotification);
         });
 
+        /* 댓글 좋아요 이벤트 리스너 */
+        eventSource.addEventListener("comment-like", (event) => {
+            const newNotification = JSON.parse(event.data);
+            newNotification.regTime = new Date(newNotification.regTime);
+            onNewNotification(newNotification);
+        });
+
+        /* 대댓글 좋아요 이벤트 리스너 */
+        eventSource.addEventListener("reply-like", (event) => {
+            const newNotification = JSON.parse(event.data);
+            newNotification.regTime = new Date(newNotification.regTime);
+            onNewNotification(newNotification);
+        });
+
+        /* 팔로우 이벤트 리스너 */
         eventSource.addEventListener("following", (event) => {
             const newNotification = JSON.parse(event.data);
             newNotification.regTime = new Date(newNotification.regTime);
             onNewNotification(newNotification);
         });
 
+        /* 댓글 작성 이벤트 리스너 */
         eventSource.addEventListener("comment", (event) => {
             const newNotification = JSON.parse(event.data);
             newNotification.regTime = new Date(newNotification.regTime);

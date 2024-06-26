@@ -13,7 +13,8 @@ const PostContext = createContext();
 
 export const PostProvider = ({ children }) => {
     const { isLoggedIn, profileInfo } = useContext(UserContext);
-    const { bannedUsers, fetchBannedUsers, bannedMe, fetchBannedMe } = useReporting();
+    const { bannedUsers, fetchBannedUsers, bannedMe, fetchBannedMe } =
+        useReporting();
     const [postList, setPostList] = useState([]);
     const [postUserList, setPostUserList] = useState([]);
     const [postSuccess, setPostSuccess] = useState(false);
@@ -28,9 +29,15 @@ export const PostProvider = ({ children }) => {
     /* 차단한 사용자 게시글 필터 */
     const filterBannedUserPosts = useCallback(
         (posts) => {
-            const bannedUserIds = bannedUsers.map((user) => user.reportedUserId);
+            const bannedUserIds = bannedUsers.map(
+                (user) => user.reportedUserId
+            );
             const bannedMeIds = bannedMe.map((user) => user.reporterUserId);
-            return posts.filter((post) => !bannedUserIds.includes(post.userId) && !bannedMeIds.includes(post.userId));
+            return posts.filter(
+                (post) =>
+                    !bannedUserIds.includes(post.userId) &&
+                    !bannedMeIds.includes(post.userId)
+            );
         },
         [bannedUsers, bannedMe]
     );
@@ -83,16 +90,19 @@ export const PostProvider = ({ children }) => {
                 })
             );
             if (currentFile) {
-                const currentBreed = await PostService.classifyImage(
-                    currentFile
-                );
+                // const currentBreed = await PostService.classifyImage(
+                //     currentFile
+                // );
 
-                formData.append("breed", currentBreed);
+                formData.append("breed", "");
                 formData.append("file", currentFile);
             } else {
                 // 기존 이미지 정보를 유지하기 위해 이미지 URL을 포함
                 if (post.imageList && post.imageList.length > 0) {
                     formData.append("imageUrl", post.imageList[0].imageUrl);
+                }
+                if (post.videoList && post.videoList.length > 0) {
+                    formData.append("videoUrl", post.videoList[0].videoUrl);
                 }
             }
 
@@ -186,7 +196,6 @@ export const PostProvider = ({ children }) => {
             fetchUserPosts(profileInfo.id);
         }
     }, [bannedUsers, bannedMe, fetchPosts, fetchUserPosts, profileInfo.id]);
-
 
     return (
         <PostContext.Provider

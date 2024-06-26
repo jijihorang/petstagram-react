@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+    z-index: 999;
     padding: 20px;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .postview-img-section {
-    background-color: #d9d9d9;
+    background-color: black;
     flex: 3; 
     display: flex;
     flex-direction: column;
@@ -43,11 +43,52 @@
     max-height: 100%;
     overflow: hidden;
     border-right: 1px solid #d9d9d9; 
+    position: relative;
+}
+
+.postview-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; 
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(182, 182, 183);
+    border-radius: 50%;
+    color: none;
+    font-size: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.slider-button-left {
+    left: 10px;
+}
+
+.slider-button-right {
+    right: 10px;
 }
 
 .postview-image {
     width: 100%;
-    height: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.postview-video {
+    width: 100%;
+    height: auto;
     object-fit: cover;
 }
 
@@ -77,31 +118,21 @@
     border-radius: 50%;
 }
 
-.postview-username-location {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px; /* 프로필 이미지와의 간격 조정 */
-}
-
 .postview-username {
     font-family: "Inter-Bold", Helvetica;
     font-size: 17px;
     font-weight: 700;
     color: #000000;
-}
-
-.postview-location {
-    font-size: 13px;
-    color: #8e8e8e;
-    margin-top: 3px;
+    margin-left: 10px; 
+    flex: 1;
 }
 
 .postview-more-icon {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    margin-left: auto; /* 아이콘을 오른쪽 끝으로 밀기 */
 }
+
 .postview-body-section {
     flex: 1;
     display: flex;

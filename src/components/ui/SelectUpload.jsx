@@ -14,7 +14,7 @@ const ModalBackdrop = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 9;
 `;
 
 const ModalContainer = styled.div`

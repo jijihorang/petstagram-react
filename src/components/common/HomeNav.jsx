@@ -1,19 +1,52 @@
 import "./HomeNav.css";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useUser from "../hook/useUser";
 import useModal from "../hook/useModal";
-import useNav from "../hook/useNav";
 import SelectUpload from "../ui/SelectUpload";
-
 import icons from "../../assets/ImageList";
+import useChatRoom from "../hook/useChatRoom";
+import useNav from "../hook/useNav";
 
 const HomeNav = () => {
-    const { profileInfo } = useUser();
+    const { isLoggedIn, profileInfo } = useUser();
     const { openModal, closeModal, isModalOpen } = useModal();
-    const { navState, handleNavClick, handleMenuClick, isCollapsed } = useNav();
+    const { messageCount, unreadMessageCount } = useChatRoom();
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const {
+        navState,
+        setNavState,
+        handleNavClick,
+        handleMenuClick,
+        isCollapsed,
+        setIsCollapsed,
+    } = useNav();
+
+    const getCurrentNavState = (path) => ({
+        home: path === "/",
+        search: path === "/search",
+        explore: path === "/explore",
+        messages: path === "/messages",
+        notification: path === "/notification",
+        profile: path === "/profile",
+        more: path === "/more",
+    });
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            unreadMessageCount();
+        }
+    }, [unreadMessageCount, isLoggedIn]);
+
+    useEffect(() => {
+        setNavState(getCurrentNavState(location.pathname));
+        if (location.pathname === "/messages") {
+            setIsCollapsed(true);
+        }
+    }, [location.pathname, setNavState, setIsCollapsed]);
 
     return (
         <div className="home-nav-container">
@@ -78,15 +111,22 @@ const HomeNav = () => {
                     </MenuItem>
                     <MenuItem
                         icon={
-                            <img
-                                src={
-                                    navState.messages
-                                        ? icons.messageIconFilled
-                                        : icons.messageIcon
-                                }
-                                alt="Messages"
-                                className="menu-icon"
-                            />
+                            <div className="message-icon-container">
+                                <img
+                                    src={
+                                        navState.messages
+                                            ? icons.messageIconFilled
+                                            : icons.messageIcon
+                                    }
+                                    alt="Messages"
+                                    className="menu-icon"
+                                />
+                                {messageCount > 0 && (
+                                    <div className="message-count-badge">
+                                        {messageCount}
+                                    </div>
+                                )}
+                            </div>
                         }
                         className={`menu-item ${
                             navState.messages ? "active" : ""

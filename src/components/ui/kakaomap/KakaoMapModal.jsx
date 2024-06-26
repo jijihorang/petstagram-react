@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+
 import KakaoMapListItem from "./KakaoMapListItem";
 import KakaoMapKeyword from "./KakaoMapKeyword";
 import KakaoMapSearch from "./KakaoMapSearch";
@@ -36,7 +37,7 @@ const KakaoMapModal = ({ onClose, setSelectedAddress }) => {
                     map.setCenter(new window.kakao.maps.LatLng(lat, lng));
                 });
             } else {
-                alert("현재위치 인식 불가");
+                alert("Geolocation을 사용할 수 없습니다.");
             }
         }
     }, [map]);
@@ -109,7 +110,7 @@ const KakaoMapModal = ({ onClose, setSelectedAddress }) => {
     const displayPlaces = (places, page) => {
         const bounds = new window.kakao.maps.LatLngBounds();
         const newMarkers = [];
-        const pageSize = 3; // 페이지당 표시할 결과 수
+        const pageSize = 2; // 페이지당 표시할 결과 수
         const startIdx = (page - 1) * pageSize;
         const endIdx = Math.min(startIdx + pageSize, places.length);
 
@@ -133,7 +134,7 @@ const KakaoMapModal = ({ onClose, setSelectedAddress }) => {
 
             // 마커에 이벤트 리스너 추가 (마커 클릭 시 장소 선택)
             window.kakao.maps.event.addListener(marker, 'click', () => {
-                setSelectedAddress(place.place_name);
+                setSelectedAddress(place.road_address_name);
                 onClose();
             });
 
@@ -202,7 +203,7 @@ const KakaoMapModal = ({ onClose, setSelectedAddress }) => {
             // 같은 키워드를 클릭했을 때 검색 결과 초기화
             setState(prev => ({ ...prev, places: [], keyword: "" }));
         } else {
-            setState(prev => ({ ...prev, keyword })); // 검색 결과 유지
+            setState(prev => ({ ...prev, keyword }));
             searchPlaces(keyword);
         }
     };
@@ -235,7 +236,7 @@ const KakaoMapModal = ({ onClose, setSelectedAddress }) => {
                     </Map>
 
                     <PlacesList>
-                        {state.places.slice((state.currentPage - 1) * 3, state.currentPage * 3).map((place, index) => (
+                        {state.places.slice((state.currentPage - 1) * 2, state.currentPage * 2).map((place, index) => (
                             <KakaoMapListItem key={index} place={place} index={index} setSelectedAddress={setSelectedAddress} onClose={onClose} />
                         ))}
                     </PlacesList>
@@ -248,7 +249,6 @@ const KakaoMapModal = ({ onClose, setSelectedAddress }) => {
 
 export default KakaoMapModal;
 
-// 스타일드 컴포넌트들
 const ModalOverlay = styled.div`
     position: fixed;
     top: 0;
@@ -266,7 +266,7 @@ const ModalContent = styled.div`
     background: #fff;
     padding: 20px;
     border-radius: 10px;
-    width: 87%;
+    width: 80%;
     max-width: 1300px;
     position: relative;
 `;
@@ -317,3 +317,4 @@ const Pagination = styled.div`
         border: 1px solid #808080;
     }
 `;
+

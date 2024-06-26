@@ -1,6 +1,5 @@
 import React from "react";
 import "./FollowCancelModal.css";
-import { useNavigate } from "react-router-dom";
 
 const FollowCancelModal = ({
     title,
@@ -14,7 +13,21 @@ const FollowCancelModal = ({
     const contentsMessage =
         title === "팔로워"
             ? `${user.email}님은 회원님의 팔로워 리스트에서 삭제된 사실을 알 수 없습니다.`
-            : `생각이 바뀌면 ${user.email}님의 팔로우를 다시 요청할 수 있습니다.`;
+            : `@${user.email}님의 팔로우를 취소하시겠어요?`;
+
+    const handleAction = async () => {
+        try {
+            await onButtonClick(user.id);
+            if (title === "팔로워") {
+                await fetchFollowCounts();
+            }
+            await fetchFollowList();
+        } catch (error) {
+            console.error("An error occurred:", error);
+        } finally {
+            onClose();
+        }
+    };
 
     return (
         <div className="followcanclemodal-overlay">
@@ -33,16 +46,11 @@ const FollowCancelModal = ({
                     <p>{contentsMessage}</p>
                 </div>
                 <div className="followcanclemodal_footer">
-                <button
+                    <button
                         className="followcanclemodal_cancel-btn"
-                        onClick={async () => {
-                            await onButtonClick(user.id);
-                            await fetchFollowCounts();
-                            await fetchFollowList();
-                            onClose();
-                        }}
+                        onClick={handleAction}
                     >
-                        팔로우 취소
+                        {title === "팔로워" ? "삭제" : "팔로우 취소"}
                     </button>
                 </div>
                 <div className="followcanclemodal_footer">

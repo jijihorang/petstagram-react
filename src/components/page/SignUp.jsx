@@ -43,7 +43,7 @@ const SignUp = () => {
         const { name, value } = e.target;
         setUserData({ ...userData, [name]: value });
         setTouched({ ...touched, [name]: true });
-
+        
         if (name === "phone") {
             setUserData({ ...userData, [name]: formatPhoneNumber(value) });
         } else {
@@ -83,9 +83,7 @@ const SignUp = () => {
             password: true,
         };
         setTouched(newTouched);
-        const isValid = Object.values(userData).every(
-            (value) => value.trim() !== ""
-        );
+        const isValid = Object.values(userData).every(value => value.trim() !== "");
         if (!isValid) {
             setErrorMessage("모든 필드를 채워주세요.");
             return;
@@ -135,9 +133,7 @@ const SignUp = () => {
                                 placeholder="이메일 주소"
                                 value={userData.email}
                                 onChange={handleInputChange}
-                                className={`signup-input-email ${
-                                    errors.email ? "error" : ""
-                                }`}
+                                className={`signup-input-email ${errors.email ? "error" : ""}`}
                                 required
                             />
                         </div>
@@ -148,9 +144,7 @@ const SignUp = () => {
                                 placeholder="사용자 이름"
                                 value={userData.name}
                                 onChange={handleInputChange}
-                                className={`signup-input-name ${
-                                    errors.name ? "error" : ""
-                                }`}
+                                className={`signup-input-name ${errors.name ? "error" : ""}`}
                                 required
                             />
                         </div>
@@ -161,9 +155,7 @@ const SignUp = () => {
                                 placeholder="휴대폰 번호"
                                 value={userData.phone}
                                 onChange={handleInputChange}
-                                className={`signup-input-phone ${
-                                    errors.phone ? "error" : ""
-                                }`}
+                                className={`signup-input-phone ${errors.phone ? "error" : ""}`}
                                 required
                             />
                         </div>
@@ -174,17 +166,13 @@ const SignUp = () => {
                                 placeholder="비밀번호"
                                 value={userData.password}
                                 onChange={handleInputChange}
-                                className={`signup-input-password ${
-                                    errors.password ? "error" : ""
-                                }`}
+                                className={`signup-input-password ${errors.password ? "error" : ""}`}
                                 required
                             />
                         </div>
                         <button
                             type="submit"
-                            className={`signup-submit ${
-                                isButtonEnabled ? "enabled" : "disabled"
-                            }`}
+                            className={`signup-submit ${isButtonEnabled ? "enabled" : "disabled"}`}
                         >
                             가입
                         </button>

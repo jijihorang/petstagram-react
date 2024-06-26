@@ -49,7 +49,7 @@ export const UserProvider = ({ children }) => {
 
     return (
         <UserContext.Provider
-            value={{ isLoggedIn, setIsLoggedIn, profileInfo, fetchProfileInfo }}
+            value={{ isLoggedIn, setIsLoggedIn, profileInfo, fetchProfileInfo, getProfileImageUrl }}
         >
             {children}
         </UserContext.Provider>

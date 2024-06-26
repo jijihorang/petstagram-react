@@ -3,17 +3,17 @@ import { useState, useEffect } from "react";
 import "./DogCursor.css";
 
 const DogCursor = () => {
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseMove = (event) => {
-      setPosition({ x: event.clientX, y: event.clientY });
+      setPosition({ x: event.clientX + window.scrollX, y: event.clientY + window.scrollY });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 

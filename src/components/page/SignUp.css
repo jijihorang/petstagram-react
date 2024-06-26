@@ -20,7 +20,7 @@
     text-align: center;
 }
 
-.signup-info h1 {
+.signup-info h1{
     margin-bottom: 20px;
 }
 
@@ -61,11 +61,11 @@
 }
 
 .signup-submit.disabled {
-    background-color: rgb(198, 222, 250);
+    background-color: rgb(198, 222, 250); 
 }
 
 .signup-submit.enabled {
-    background-color: rgb(65, 147, 239);
+    background-color: rgb(65, 147, 239); 
 }
 
 .or-separator {

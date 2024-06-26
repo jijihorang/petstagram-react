@@ -1,0 +1,25 @@
+.feed-story-list {
+    display: flex;
+    padding: 10px;
+    overflow-x: scroll;
+}
+
+.feed-story-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.feed-story-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ff3e3e;
+}
+
+.feed-story-username {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #262626;
+}

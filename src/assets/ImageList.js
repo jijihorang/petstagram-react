@@ -24,6 +24,8 @@ import BasicImage from "./basic-profile.jpeg";
 
 /* MyFeed */
 import shareIcon from "/src/assets/myfeed/myfeed-share.png";
+import videoIcon from "/src/assets/myfeed/myfeed-video.png";
+import imgaeIcon from "/src/assets/myfeed/myfeed-image.png";
 
 /* Webcam */
 import transform from "/src/assets/camera/transform.png";
@@ -41,12 +43,25 @@ import moreIcon2 from "./postviewmodal/postview-comment-more.png";
 import lineIcon from "./postviewmodal/postview-line.png";
 
 /* PostModal */
+import photoIcon from "./postmodal/photo.png";
 import smileIcon from "./postmodal/smile.png";
 import locationIcon from "./postmodal/location.png";
 import underArrowIcon from "./postmodal/under.png";
 
 /* FindPassword */
 import lockIcon from "./find-password.png";
+
+/* Message DM */
+import messageInfoIcon from "./message/message-info.png";
+import messageImageInputIcon from "./message/message-input.png";
+import messageSmileIcon from "./message/message-smile.png";
+import messageMicIcon from "./message/message-mic.png";
+import messageImageInputIcon2 from "./message/message-input2.png";
+import messageWrite from "./message/message-write.png";
+import messageWriteClose from "./message/message-close.png";
+import messageAudioClose from "./message/message-close2.png";
+import messagePauseIcon from "./message/message-pause.png";
+import messagePlayIcon from "./message/message-play.png";
 
 const icons = {
     // HomeNav
@@ -75,6 +90,8 @@ const icons = {
 
     // Myfeed
     shareIcon,
+    videoIcon,
+    imgaeIcon,
 
     // Webcam
     transform,
@@ -90,14 +107,27 @@ const icons = {
     bookMarkIcon2,
     moreIcon2,
     lineIcon,
-    
+
     // PostModal
+    photoIcon,
     smileIcon,
     locationIcon,
     underArrowIcon,
 
     // FindPassword
     lockIcon,
+
+    // Message DM
+    messageInfoIcon,
+    messageImageInputIcon,
+    messageSmileIcon,
+    messageMicIcon,
+    messageImageInputIcon2,
+    messageWrite,
+    messageWriteClose,
+    messageAudioClose,
+    messagePauseIcon,
+    messagePlayIcon,
 };
 
 export default icons;

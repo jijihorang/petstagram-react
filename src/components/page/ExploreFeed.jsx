@@ -16,6 +16,7 @@ const ExploreFeed = () => {
     return (
         <div className="explore">
             <div className="explore-frame">
+                <div></div>
                 <div className="grid-container">
                     {images.map((image, index) => (
                         <div key={index} className="grid-item">

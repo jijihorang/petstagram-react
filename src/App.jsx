@@ -15,13 +15,13 @@ import { NavProvider } from "./contexts/NavContext";
 import { ModalProvider } from "./contexts/ModalContext";
 import { FollowProvider } from "./contexts/FollowContext";
 import { CommentProvider } from "./contexts/CommentContext";
-import { ThemeProvider } from "./contexts/ThemeContext";
+import { ChatRoomProvider } from "./contexts/ChatRoomContext";
 
 /* 컴포넌트 */
 import LoginForm from "./components/page/LoginForm";
 import FindPassword from "./components/page/FindPassword";
 import SignUp from "./components/page/SignUp";
-import Feed from "./components/page/Feed";
+import Feed from "./components/page/feed/Feed";
 import FriendFeed from "./components/page/FriendFeed";
 import ExploreFeed from "./components/page/ExploreFeed";
 import MyFeed from "./components/page/MyFeed";
@@ -81,8 +81,12 @@ const AppContent = () => {
                                 <div className="div">
                                     {!navState.explore && (
                                         <>
-                                            <Feed />
-                                            <FriendNav />
+                                            <div className="feed-container">
+                                                <Feed />
+                                            </div>
+                                            <div className="friend-nav-container">
+                                                <FriendNav />
+                                            </div>
                                         </>
                                     )}
                                     <div className="main-container">
@@ -105,7 +109,9 @@ const AppContent = () => {
                         isLoggedIn ? (
                             <div className="app">
                                 <div className="div">
-                                    <ExploreFeed />
+                                    <div className="feed-container">
+                                        <ExploreFeed />{" "}
+                                    </div>
                                     <div className="main-container">
                                         <HomeNav />
                                         {navState.search && <SearchNav />}
@@ -147,7 +153,9 @@ const AppContent = () => {
                         isLoggedIn ? (
                             <div className="app">
                                 <div className="div">
-                                    <MyFeed />
+                                    <div className="myfeed-container">
+                                        <MyFeed />{" "}
+                                    </div>
                                     <div className="main-container">
                                         <HomeNav />
                                         {navState.search && <SearchNav />}
@@ -168,7 +176,9 @@ const AppContent = () => {
                         isLoggedIn ? (
                             <div className="app">
                                 <div className="div">
-                                    <FriendFeed />
+                                    <div className="friendfeed-container">
+                                        <FriendFeed />
+                                    </div>
                                     <div className="main-container">
                                         <HomeNav />
                                         {navState.search && <SearchNav />}
@@ -183,7 +193,27 @@ const AppContent = () => {
                         )
                     }
                 />
-                
+                <Route
+                    path="/messages/:ChatRoomId"
+                    element={
+                        isLoggedIn ? (
+                            <div className="app">
+                                <div className="div">
+                                    <Message />
+                                    <div className="main-container">
+                                        <HomeNav />
+                                        {navState.search && <SearchNav />}
+                                        {navState.notification && (
+                                            <NotificationNav />
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
+                />
             </Routes>
         </Router>
     );
@@ -197,9 +227,9 @@ const App = () => (
                     <CommentProvider>
                         <FollowProvider>
                             <ModalProvider>
-                                <ThemeProvider>
+                                <ChatRoomProvider>
                                     <AppContent />
-                                </ThemeProvider>
+                                </ChatRoomProvider>
                             </ModalProvider>
                         </FollowProvider>
                     </CommentProvider>

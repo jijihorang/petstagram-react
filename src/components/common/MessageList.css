@@ -6,8 +6,7 @@
     width: 470px;
     border-left: 1px solid rgb(237, 237, 237);
     border-right: 1px solid rgb(237, 237, 237);
-    border-radius: 0 20px 20px 0;
-    overflow-y: auto; /* 스크롤 가능하게 */
+    overflow-y: auto; 
     position: relative;
 }
 
@@ -41,8 +40,7 @@
     background-color: #f9f9f9;
 }
 
-
-.Message_ellipse {
+.Message_profile_image {
     height: 53px;
     width: 53px;
     background-color: #ccc;
@@ -53,7 +51,7 @@
 .Message_message_info {
     flex-grow: 1;
     display: flex;
-    flex-direction: column; /* 내용을 위 아래로 정렬 */
+    flex-direction: column; 
 }
 
 .Message_user_name {
@@ -61,6 +59,26 @@
 }
 
 .Message_message_text {
-    color: #666;
     font-size: 14px;
+}
+
+.new-message .Message_message_text {
+    color: black;
+}
+
+.read-message .Message_message_text {
+    color: #666;
+}
+
+.Message_post-ellipse {
+    width: 10px;
+    height: 10px;
+    background-color: blue;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.Message_message_time {
+    font-size: 12px;
+    color: #999;
 }

@@ -183,12 +183,6 @@ const FriendFollowModal = ({ fetchFollowList, followList, onClose, title }) => {
         [localFollowingList]
     );
 
-    // useEffect(() => {
-    //     console.log('Fetching follow list for modal:', title);
-    //     fetchFollowList();
-    //     fetchFollowingList();
-    // }, [fetchFollowingList, fetchFollowList, title]);
-
     return (
         <Overlay>
             <Container>

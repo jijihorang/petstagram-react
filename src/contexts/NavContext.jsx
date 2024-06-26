@@ -64,13 +64,18 @@ export const NavProvider = ({ children }) => {
     const handleMenuClick = (menu, path, navigate) => {
         handleNavClick(menu);
         navigate(path);
-        setIsCollapsed(menu === "messages" || window.innerWidth <= 1100);
+        if (menu === "messages" || window.innerWidth <= 1100) {
+            setIsCollapsed(true);
+        } else {
+            setIsCollapsed(false);
+        }
     };
 
     return (
         <NavContext.Provider
             value={{
                 navState,
+                setNavState,
                 handleNavClick,
                 handleMenuClick,
                 isCollapsed,

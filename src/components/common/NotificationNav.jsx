@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Notification.css";
 import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
@@ -8,19 +8,28 @@ import useAllUser from "../hook/useAllUser";
 import usePost from "../hook/usePost";
 import useNotifications from "../hook/useNotifications";
 import useFollow from "../hook/useFollow";
+import useComment from "../hook/useComment";
+import useModal from "../hook/useModal";
+
 import {
     categorizeNotifications,
     getDisplayTime,
 } from "../../utils/GetNotiTime";
-import useComment from "../hook/useComment";
+import PostViewModal from "../ui/PostViewUI/PostViewModal";
+import useReporting from "../hook/useReporting";
 
 const NotificationNav = () => {
     const { profileInfo } = useUser();
     const { allUserProfiles } = useAllUser();
-    const { postList } = usePost();
+    const { postList = [], deletePost } = usePost();
+    const { openModal, closeModal, isModalOpen } = useModal();
     const { commentList, fetchAllComments } = useComment();
     const notifications = useNotifications(profileInfo.id);
     const { isFollowing, handleFollow, handleUnfollow } = useFollow();
+    const { bannedUsers } = useReporting();
+
+    const [selectedPost, setSelectedPost] = useState(null);
+    const [modalType, setModalType] = useState("myfeed");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,7 +41,6 @@ const NotificationNav = () => {
             fetchAllComments();
         }
     }, [notifications, fetchAllComments]);
-
 
     const getLikerImage = (fromUserId) => {
         const user = allUserProfiles.find((user) => user.id === fromUserId);
@@ -79,9 +87,45 @@ const NotificationNav = () => {
             : "댓글 내용을 불러오지 못했습니다.";
     };
 
+    const getReplyContent = (notification) => {
+        const postComments =
+            commentList.find((post) => post.postId === notification.postId)
+                ?.comments || [];
+        const comment = postComments.find((c) =>
+            c.replyCommentList.some(
+                (reply) => reply.id === notification.replyId
+            )
+        );
+        const reply = comment?.replyCommentList.find(
+            (r) => r.id === notification.replyId
+        );
+
+        return reply
+            ? reply.replyCommentContent
+            : "대댓글 내용을 불러오지 못했습니다.";
+    };
+
+    const handleNotificationClick = (postId) => {
+        const post = postList.find((post) => post.id === postId);
+        if (post) {
+            setSelectedPost(post);
+            if (post.userId === profileInfo.id) {
+                setModalType("myfeed");
+            } else {
+                setModalType("feed");
+            }
+            openModal("noti-postview");
+        }
+    };
+
     const renderNotification = (notification) => {
-        const likerEmail = getLikerEmail(notification.fromUserId);
-        if (likerEmail === "Unknown") {
+        /* 차단한 유저의 알림 숨김 */
+        if (
+            bannedUsers.some(
+                (bannedUser) =>
+                    bannedUser.reportedUserId === notification.fromUserId
+            )
+        ) {
             return null;
         }
 
@@ -103,17 +147,28 @@ const NotificationNav = () => {
                         {notification.eventType === "like" && (
                             <>
                                 <div>
-                                    <div className="notification-like">
+                                    <div
+                                        className="notification-like"
+                                        onClick={() => {
+                                            handleNotificationClick(
+                                                notification.postId
+                                            );
+                                        }}
+                                    >
                                         <span className="notification-from-user">
-                                            {getLikerEmail(notification.fromUserId)}
+                                            {getLikerEmail(
+                                                notification.fromUserId
+                                            )}
                                         </span>
                                         님이 회원님의 게시물을 좋아합니다.
                                         <span className="notification-regtime">
-                                            {getDisplayTime(notification.regTime)}
+                                            {getDisplayTime(
+                                                notification.regTime
+                                            )}
                                         </span>
                                     </div>
                                 </div>
-    
+
                                 <div className="notification-post-image-wrapper">
                                     <img
                                         src={getPostImage(notification.postId)}
@@ -123,24 +178,104 @@ const NotificationNav = () => {
                                 </div>
                             </>
                         )}
-    
+
+                        {/* 댓글 좋아요 알림 */}
+                        {notification.eventType === "comment-like" && (
+                            <>
+                                <div>
+                                    <div
+                                        className="notification-like"
+                                        onClick={() => {
+                                            handleNotificationClick(
+                                                notification.postId
+                                            );
+                                        }}
+                                    >
+                                        <span className="notification-from-user">
+                                            {getLikerEmail(
+                                                notification.fromUserId
+                                            )}
+                                        </span>
+                                        님이 회원님의 댓글을 좋아합니다:{" "}
+                                        <span>
+                                            {getCommentContent(notification)}
+                                        </span>
+                                        <span className="notification-regtime">
+                                            {getDisplayTime(
+                                                notification.regTime
+                                            )}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="notification-post-image-wrapper">
+                                    <img
+                                        src={getPostImage(notification.postId)}
+                                        className="notification-post-image"
+                                        alt="post"
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        {/* 대댓글 좋아요 알림 */}
+                        {notification.eventType === "reply-like" && (
+                            <>
+                                <div>
+                                    <div
+                                        className="notification-like"
+                                        onClick={() => {
+                                            handleNotificationClick(
+                                                notification.postId
+                                            );
+                                        }}
+                                    >
+                                        <span className="notification-from-user">
+                                            {getLikerEmail(
+                                                notification.fromUserId
+                                            )}
+                                        </span>
+                                        님이 회원님의 댓글을 좋아합니다:{" "}
+                                        <span>
+                                            {getReplyContent(notification)}
+                                        </span>
+                                        <span className="notification-regtime">
+                                            {getDisplayTime(
+                                                notification.regTime
+                                            )}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="notification-post-image-wrapper">
+                                    <img
+                                        src={getPostImage(notification.postId)}
+                                        className="notification-post-image"
+                                        alt="post"
+                                    />
+                                </div>
+                            </>
+                        )}
+
                         {/* 팔로잉 알림 */}
                         {notification.eventType === "following" && (
                             <>
                                 <div>
                                     <div className="notification-follow">
-                                        {getLikerEmail(notification.fromUserId)}님이
-                                        팔로우하셨습니다.
+                                        {getLikerEmail(notification.fromUserId)}
+                                        님이 팔로우하셨습니다.
                                         <span className="notification-regtime">
-                                            {getDisplayTime(notification.regTime)}
+                                            {getDisplayTime(
+                                                notification.regTime
+                                            )}
                                         </span>
                                     </div>
                                 </div>
-    
+
                                 <div className="notification-follow-btn">
                                     {isFollowing(notification.fromUserId) ? (
                                         <Button
-                                            backgroundColor="rgb(239, 239, 239)"
+                                            bgColor="rgb(239, 239, 239)"
                                             width="75px"
                                             color="rgb(0, 0, 0)"
                                             onClick={() =>
@@ -153,7 +288,7 @@ const NotificationNav = () => {
                                         </Button>
                                     ) : (
                                         <Button
-                                            backgroundColor="rgb(65, 147, 239)"
+                                            bgColor="rgb(65, 147, 239)"
                                             width="75px"
                                             onClick={() =>
                                                 handleFollow(
@@ -167,26 +302,75 @@ const NotificationNav = () => {
                                 </div>
                             </>
                         )}
-    
+
                         {/* 댓글 알림 */}
                         {notification.eventType === "comment" && (
                             <>
                                 <div>
-                                    <div className="notification-comment">
+                                    <div
+                                        className="notification-comment"
+                                        onClick={() => {
+                                            handleNotificationClick(
+                                                notification.postId
+                                            );
+                                        }}
+                                    >
                                         <span className="notification-from-user">
-                                            {getLikerEmail(notification.fromUserId)}
+                                            {getLikerEmail(
+                                                notification.fromUserId
+                                            )}
                                         </span>
-                                        님이 댓글을 남겼습니다:
+                                        님이 댓글을 남겼습니다:{" "}
                                         <span>
-                                            {" "}
                                             {getCommentContent(notification)}
                                         </span>
                                         <span className="notification-regtime">
-                                            {getDisplayTime(notification.regTime)}
+                                            {getDisplayTime(
+                                                notification.regTime
+                                            )}
                                         </span>
                                     </div>
                                 </div>
-    
+
+                                <div className="notification-post-image-wrapper">
+                                    <img
+                                        src={getPostImage(notification.postId)}
+                                        className="notification-post-image"
+                                        alt="post"
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        {/* 대댓글 알림 */}
+                        {notification.eventType === "reply" && (
+                            <>
+                                <div>
+                                    <div
+                                        className="notification-comment"
+                                        onClick={() => {
+                                            handleNotificationClick(
+                                                notification.postId
+                                            );
+                                        }}
+                                    >
+                                        <span className="notification-from-user">
+                                            {getLikerEmail(
+                                                notification.fromUserId
+                                            )}
+                                        </span>
+                                        님이 댓글을 남겼습니다:{" "}
+                                        <span>
+                                            {getReplyContent(notification)}
+                                        </span>
+                                        <span className="notification-regtime">
+                                            {getDisplayTime(
+                                                notification.regTime
+                                            )}
+                                        </span>
+                                    </div>
+                                </div>
+
                                 <div className="notification-post-image-wrapper">
                                     <img
                                         src={getPostImage(notification.postId)}
@@ -200,7 +384,7 @@ const NotificationNav = () => {
                 </div>
             </div>
         );
-    }
+    };
 
     return (
         <div className="notification-container">
@@ -209,7 +393,7 @@ const NotificationNav = () => {
             </div>
 
             <div className="notification-recent">
-            {today.length > 0 && (
+                {today.length > 0 && (
                     <>
                         <div className="notification-date">
                             <h4>오늘</h4>
@@ -254,6 +438,14 @@ const NotificationNav = () => {
                     </>
                 )}
             </div>
+            {isModalOpen("noti-postview") && selectedPost && (
+                <PostViewModal
+                    post={selectedPost}
+                    deletePost={deletePost}
+                    onClose={() => closeModal("noti-postview")}
+                    modalType={modalType}
+                />
+            )}
         </div>
     );
 };

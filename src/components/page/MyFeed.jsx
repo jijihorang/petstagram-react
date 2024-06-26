@@ -11,14 +11,21 @@ import ProfileUpdateModal from "../ui/ProfileUpdateModal";
 import FollowListModal from "../ui/FollowListModal";
 import SelectUpload from "../ui/SelectUpload";
 import PostViewModal from "../ui/PostViewUI/PostViewModal";
-import SettingModal from "../ui/settingUI/SettingModal";
 
 import icons from "../../assets/ImageList";
+
+import SettingModal from "../ui/settingUI/SettingModal";
+
 
 const MyFeed = () => {
     const { profileInfo } = useUser();
     const { openModal, closeModal, isModalOpen } = useModal();
-    const { postUserList = [], deletePost, fetchUserPosts, postSuccess } = usePost();
+    const {
+        postUserList = [],
+        deletePost,
+        fetchUserPosts,
+        postSuccess,
+    } = usePost();
     const {
         handleDeleteFollower,
         handleUnfollow,
@@ -32,7 +39,6 @@ const MyFeed = () => {
         useFollowCounts(profileInfo.id);
 
     const [selectedPost, setSelectedPost] = useState(null);
-    
 
     useEffect(() => {
         fetchUserPosts(profileInfo.id);
@@ -45,10 +51,14 @@ const MyFeed = () => {
 
     const handleFollowButtonClick = async (userId, action) => {
         await action(userId);
+        await fetchFollowCounts();
     };
 
     const getImageUrl = (image) =>
         `http://localhost:8088/uploads/${image.imageUrl}`;
+
+    const getVideoUrl = (video) =>
+        `http://localhost:8088/uploads/${video.videoUrl}`;
 
     const handlePostView = (post) => {
         setSelectedPost(post);
@@ -56,25 +66,31 @@ const MyFeed = () => {
     };
 
     const images = postUserList.flatMap((post) => post.imageList);
+    const videos = postUserList.flatMap((post) => post.videoList);
 
     return (
         <div className="myfeed-frame">
             <UserProfile
                 profileInfo={profileInfo}
-                imagesCount={images.length}
+                postCount={postUserList.length}
                 followersCount={followersCount}
                 followingsCount={followingsCount}
                 onProfileModalOpen={() => openModal("profileUpdate")}
                 onFollowerModalOpen={() => openModal("followerList")}
                 onFollowingModalOpen={() => openModal("followingList")}
                 onUploadModalOpen={() => openModal("upload")}
-                onSettingModalOpen={() => openModal("setting")} // SettingModal 열기
+                onSettingModalOpen={() => openModal("setting")}
             />
             <div className="myfeed-container">
-                {images.length === 0 ? (
+                {images.length === 0 && videos.length === 0 ? (
                     <EmptyFeed onUploadModalOpen={() => openModal("upload")} />
                 ) : (
-                    <ImageGrid posts={postUserList} getImageUrl={getImageUrl} onImageClick={handlePostView} />
+                    <ImageGrid
+                        posts={postUserList}
+                        getImageUrl={getImageUrl}
+                        getVideoUrl={getVideoUrl}
+                        onMediaClick={handlePostView}
+                    />
                 )}
             </div>
             {isModalOpen("profileUpdate") && (
@@ -131,13 +147,13 @@ const MyFeed = () => {
 
 const UserProfile = ({
     profileInfo,
-    imagesCount,
+    postCount,
     followersCount,
     followingsCount,
     onProfileModalOpen,
     onFollowerModalOpen,
     onFollowingModalOpen,
-    onSettingModalOpen, // SettingModal 열기 함수 추가
+    onSettingModalOpen
 }) => (
     <div className="myfeed-user-info">
         <div className="myfeed-user-avatar">
@@ -162,7 +178,7 @@ const UserProfile = ({
                 </div>
             </div>
             <div className="myfeed-user-stats">
-                <UserStat label="게시물" count={imagesCount} />
+                <UserStat label="게시물" count={postCount} />
                 <UserStat
                     label="팔로워"
                     count={followersCount}
@@ -200,14 +216,58 @@ const EmptyFeed = ({ onUploadModalOpen }) => (
     </div>
 );
 
-const ImageGrid = ({ getImageUrl, posts, onImageClick }) => (
-    <div className="myfeed-grid-container">
-        {posts.map((post, index) => (
-            <div key={index} className="myfeed-grid-item" onClick={() => onImageClick(post)}>
-                <img src={getImageUrl(post.imageList[0])} alt={`grid-${index}`} />
-            </div>
-        ))}
-    </div>
-);
+const ImageGrid = ({ getImageUrl, getVideoUrl, posts, onMediaClick }) => {
+    /* 게시글 등록 날짜 최신 순으로 정렬 */
+    const sortedPosts = [...posts].sort(
+        (a, b) => new Date(b.regTime) - new Date(a.regTime)
+    );
+
+    return (
+        <div className="myfeed-grid-container">
+            {sortedPosts.map((post, index) => (
+                <div
+                    key={index}
+                    className="myfeed-grid-item"
+                    onClick={() => onMediaClick(post)}
+                >
+                    {/* 이미지 렌더링 */}
+                    {post.imageList && post.imageList.length > 0 && (
+                        <div className="image-wrapper">
+                            <img
+                                src={getImageUrl(post.imageList[0])}
+                                alt={`grid-${index}-img-0`}
+                                className="myfeed-grid-image"
+                            />
+                            {post.imageList.length > 1 && (
+                                <img
+                                    src={icons.imgaeIcon}
+                                    alt="multi-image-icon"
+                                    className="myfeed-multi-image-icon"
+                                />
+                            )}
+                        </div>
+                    )}
+                    {/* 동영상 렌더링 */}
+                    {post.videoList && post.videoList.length > 0 && (
+                        <div className="video-wrapper">
+                            <video
+                                key={index}
+                                src={getVideoUrl(post.videoList[0])}
+                                className="myfeed-grid-video"
+                            >
+                                Your browser does not support the video tag.
+                            </video>
+                            <img
+                                src={icons.videoIcon}
+                                alt="video-icon"
+                                className="myfeed-video-icon"
+                            />
+                        </div>
+                    )}
+                </div>
+            ))}
+        </div>
+    );
+};
 
 export default MyFeed;

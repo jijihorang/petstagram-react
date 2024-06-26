@@ -45,7 +45,6 @@ class UserService {
         return response;
     }
 
-
     // 회원 비밀번호 수정
     static async updatePassword(userId, newPassword, token = null) {
         const headers = token ? { Authorization: `Bearer ${token}` } : {};

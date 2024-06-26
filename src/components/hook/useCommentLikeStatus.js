@@ -23,7 +23,6 @@ const useCommentLikeStatus = (commentId) => {
     const handleCommentLikeClick = useCallback(
         async (commentId) => {
             const likeChange = await toggleCommentLike(commentId, commentLiked);
-            console.log(commentId);
 
             setCommentLiked(!commentLiked);
             setCommentLikesCount((prevCount) => prevCount + likeChange);

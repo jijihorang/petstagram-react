@@ -1,14 +1,25 @@
+import "./UploadModal.css";
+import * as mobilenet from "@tensorflow-models/mobilenet";
 import React, { useRef, useEffect, useState } from "react";
 import PostService from "../service/PostService";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import useModal from "../hook/useModal";
 import useUser from "../hook/useUser";
 import usePost from "../hook/usePost";
+
 import Loading from "../ui/Loading";
 import DeleteConfirm from "../ui/DeleteConfirm";
 import EmojiPicker from "../ui/EmojiPicker";
 import KakaoMapModal from "../ui/kakaomap/KakaoMapModal";
-import AddHashtag from "../ui/AddHashtag/AddHashtag";
+
+import icons from "../../assets/ImageList";
+
 import styled from "styled-components";
+import AddHashtag from "../ui/AddHashtag/AddHashtag";
 
 const HashtagContainer = styled.div`
     display: flex;
@@ -31,12 +42,17 @@ const UploadGetGallery = ({ onClose }) => {
         isLoggedIn,
         profileInfo
     );
-    const { openModal, closeModal, isModalOpen } = useModal();
+    const { openModal, closeModal, isModalOpen, toggleModal } = useModal();
+
     const fileInputRef = useRef(null);
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [text, setText] = useState("");
-    const maxTextLength = 2200;
+    const sliderRef = useRef(null);
+
+    const [selectedMedia, setSelectedMedia] = useState(null);
     const [selectedAddress, setSelectedAddress] = useState("");
+    const [mediaType, setMediaType] = useState("");
+    const [text, setText] = useState("");
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const maxTextLength = 2200;
     const [hashtags, setHashtags] = useState([]);
 
     useEffect(() => {
@@ -47,14 +63,51 @@ const UploadGetGallery = ({ onClose }) => {
     }, []);
 
     const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                setSelectedImage(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
+        const files = Array.from(e.target.files);
+        const promises = files.map((file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    if (file.type.startsWith("image")) {
+                        resolve({ src: reader.result, file });
+                    } else if (file.type.startsWith("video")) {
+                        const video = document.createElement("video");
+                        video.src = reader.result;
+                        video.onloadedmetadata = () => {
+                            const isLandscape =
+                                video.videoWidth > video.videoHeight;
+                            resolve({ src: reader.result, file, isLandscape });
+                        };
+                    }
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        });
+
+        Promise.all(promises)
+            .then((media) => {
+                const isImage = media.every((m) =>
+                    m.file.type.startsWith("image")
+                );
+                const isVideo = media.every((m) =>
+                    m.file.type.startsWith("video")
+                );
+                if (isImage) {
+                    setSelectedMedia(media);
+                    setMediaType("image");
+                } else if (isVideo) {
+                    setSelectedMedia(media);
+                    setMediaType("video");
+                } else {
+                    console.error(
+                        "이미지와 비디오를 혼합해서 업로드할 수 없습니다."
+                    );
+                }
+            })
+            .catch((error) => {
+                console.error("파일을 읽는 중 오류가 발생했습니다:", error);
+            });
     };
 
     const handleTextChange = (e) => {
@@ -72,12 +125,7 @@ const UploadGetGallery = ({ onClose }) => {
     const handleSubmit = async () => {
         try {
             openModal("loading");
-            const file = fileInputRef.current?.files[0];
-            const postData = {
-                postContent: text,
-                location: selectedAddress,
-                hashtags,
-            };
+            const postData = { postContent: text, location: selectedAddress };
             const formData = new FormData();
             formData.append(
                 "post",
@@ -86,18 +134,39 @@ const UploadGetGallery = ({ onClose }) => {
                 })
             );
 
-            if (file) {
-                const breed = await PostService.classifyImage(file);
-                console.log("Predictions: ", breed);
+            if (selectedMedia && selectedMedia.length > 0) {
+                if (mediaType === "image") {
+                    for (let media of selectedMedia) {
+                        const breed = await PostService.classifyImage(
+                            media.file
+                        );
+                        console.log("Predictions: ", breed);
 
-                formData.append("breed", breed);
-                formData.append("file", file);
+                        formData.append("breed", breed);
+                        formData.append("file", media.file);
+                    }
+                } else if (mediaType === "video") {
+                    setTimeout(() => {
+                        formData.append("file", selectedMedia[0].file);
+                        completeSubmit(formData);
+                    }, 3000); 
+                    return;
+                }
             } else {
                 console.error("파일이 선택되지 않았습니다.");
                 closeModal("loading");
                 return;
             }
 
+            completeSubmit(formData);
+        } catch (error) {
+            console.error("게시글 업로드 중 오류 발생:", error);
+            setPostList(postList);
+        }
+    };
+
+    const completeSubmit = async (formData) => {
+        try {
             const token = localStorage.getItem("token");
             const response = await PostService.createPost(formData, token);
             setPostList([...postList, response.data]);
@@ -111,9 +180,27 @@ const UploadGetGallery = ({ onClose }) => {
         }
     };
 
+    const sliderSettings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        beforeChange: (current, next) => setCurrentSlide(next),
+    };
+
+    const next = () => {
+        sliderRef.current.slickNext();
+    };
+
+    const previous = () => {
+        sliderRef.current.slickPrev();
+    };
+
     const handleAddHashtag = (hashtag) => {
         setHashtags([...hashtags, hashtag]);
     };
+
 
     return (
         <div className="post-frame-container">
@@ -126,26 +213,64 @@ const UploadGetGallery = ({ onClose }) => {
             </button>
             <div className="post-frame">
                 <div className="post-header">
-                    <div className="post-text-wrapper">새 게시물 만들기</div>
-                    <div className="post-text-wrapper-2" onClick={handleSubmit}>
+                    <div className="post-header-title">새 게시물 만들기</div>
+                    <div className="post-header-upload" onClick={handleSubmit}>
                         공유하기
                     </div>
                 </div>
+
                 <div className="post-content">
                     <div className="post-image-section">
-                        {selectedImage ? (
-                            <div className="img_section">
-                                <img
-                                    src={selectedImage}
-                                    alt="Selected"
-                                    className="selected-image"
-                                />
+                        {selectedMedia ? (
+                            <div className="slider-container">
+                                <Slider
+                                    ref={sliderRef}
+                                    {...sliderSettings}
+                                >
+                                    {selectedMedia.map((media, index) => (
+                                        <div key={index}>
+                                            {mediaType === "image" ? (
+                                                <img
+                                                    src={media.src}
+                                                    alt={`Selected ${index}`}
+                                                    className="post-selected-image"
+                                                />
+                                            ) : (
+                                                <video
+                                                    controls
+                                                    src={media.src}
+                                                    className={
+                                                        media.isLandscape
+                                                            ? "post-selected-video landscape"
+                                                            : "post-selected-video portrait"
+                                                    }
+                                                />
+                                            )}
+                                        </div>
+                                    ))}
+                                </Slider>
+                                {currentSlide > 0 && (
+                                    <button
+                                        className="post-slider-prev-btn"
+                                        onClick={previous}
+                                    >
+                                        {"<"}
+                                    </button>
+                                )}
+                                {currentSlide < selectedMedia.length - 1 && (
+                                    <button
+                                        className="post-slider-prev-next"
+                                        onClick={next}
+                                    >
+                                        {">"}
+                                    </button>
+                                )}
                             </div>
                         ) : (
-                            <div className="img_section">
+                            <div>
                                 <img
-                                    className="image_file"
-                                    src="../src/assets/postmodal/photo.png"
+                                    className="post-image-icon"
+                                    src={icons.photoIcon}
                                     alt="포스트 모달 이미지"
                                 />
                                 <br />
@@ -155,11 +280,11 @@ const UploadGetGallery = ({ onClose }) => {
                         <div
                             className="post-file-div"
                             style={{
-                                display: selectedImage ? "none" : "block",
+                                display: selectedMedia ? "none" : "block",
                             }}
                         >
                             <div
-                                className="file_section"
+                                className="post-file-select"
                                 onClick={() => fileInputRef.current.click()}
                             >
                                 컴퓨터에서 선택
@@ -169,31 +294,30 @@ const UploadGetGallery = ({ onClose }) => {
                                 ref={fileInputRef}
                                 style={{ display: "none" }}
                                 onChange={handleFileChange}
+                                multiple
                             />
                         </div>
                     </div>
                     <div className="post-details-section">
                         <div className="post-user-info">
                             <img
-                                className="post-ellipse"
+                                className="post-user-profile-image"
                                 src={profileInfo.profileImageUrl}
                                 alt="User Profile"
                             />
-                            <div className="post-text-wrapper-3">
+                            <div className="post-user-email">
                                 {profileInfo.email}
                             </div>
                         </div>
-
                         <div className="post-textarea-section">
                             <textarea
-                                className="post-input-content"
+                                className="post-textarea-content"
                                 placeholder="문구를 입력하세요..."
                                 value={text}
                                 onChange={handleTextChange}
                             />
-                        </div>
 
-                        <div className="post-add-hashtag-container">
+                         <div className="post-add-hashtag-container">
                             <img
                                 className="post-hashtag-icon"
                                 alt="hashtag icon"
@@ -207,19 +331,23 @@ const UploadGetGallery = ({ onClose }) => {
                             </HashtagContainer>
                         </div>
 
-
-                        <div className="post-counter">
-                            <img
-                                className="post-uil-smile"
-                                alt="Uil smile"
-                                src="../src/assets/postmodal/smile.png"
-                                onClick={() => openModal("emojiPicker")}
-                            />
-                            <div className="post-text-count">
-                                {text.length}/{maxTextLength}
+                            <div className="post-etc-section">
+                                <img
+                                    className="post-smile-icon"
+                                    alt="smile"
+                                    src={icons.smileIcon}
+                                    onClick={() => toggleModal("emojiPicker")}
+                                />
+                                <div className="post-content-count">
+                                    {text.length}/{maxTextLength}
+                                </div>
                             </div>
-                        </div>
 
+                            {isModalOpen("emojiPicker") && (
+                                <EmojiPicker onEmojiClick={handleEmojiClick} />
+                            )}
+
+                        </div>
                         <PostOptions
                             openModal={openModal}
                             selectedAddress={selectedAddress}
@@ -227,9 +355,6 @@ const UploadGetGallery = ({ onClose }) => {
                     </div>
                 </div>
             </div>
-            {isModalOpen("emojiPicker") && (
-                <EmojiPicker onEmojiClick={handleEmojiClick} />
-            )}
             {isModalOpen("deleteConfirm") && (
                 <DeleteConfirm closeModal={closeModal} onClose={onClose} />
             )}
@@ -239,7 +364,7 @@ const UploadGetGallery = ({ onClose }) => {
                     setSelectedAddress={setSelectedAddress}
                 />
             )}
-            {isModalOpen("addHashtag") && (
+             {isModalOpen("addHashtag") && (
                 <AddHashtag
                     onClose={() => closeModal("addHashtag")}
                     onAddHashtag={handleAddHashtag}
@@ -253,27 +378,27 @@ const PostOptions = ({ openModal, selectedAddress }) => (
     <div className="post-options">
         {[
             {
-                label: "위치 추가",
-                icon: "../src/assets/postmodal/location.png",
+                label: "위치 ",
+                icon: icons.locationIcon,
                 onClick: () => openModal("kakaoMap"),
                 showAddress: true,
             },
             {
                 label: "접근성",
-                icon: "../src/assets/postmodal/under.png",
+                icon: icons.underArrowIcon,
                 showAddress: false,
             },
             {
                 label: "고급 설정",
-                icon: "../src/assets/postmodal/under.png",
+                icon: icons.underArrowIcon,
                 showAddress: false,
             },
         ].map((option, index) => (
             <div className="post-option" key={index} onClick={option.onClick}>
-                <div className="post-text-address-input">
+                <div className="post-options-text">
                     {option.label}
                     {option.showAddress && (
-                        <span className="post-address">{selectedAddress}</span>
+                        <span className="post-address"> {selectedAddress}</span>
                     )}
                 </div>
                 <img className="post-icon" alt="Frame" src={option.icon} />
