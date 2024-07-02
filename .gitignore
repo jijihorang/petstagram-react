@@ -42,3 +42,7 @@ src/components/page/Feed.jsx
 .gitignore
 package-lock.json
 package.json
+.env
+.gitignore
+package-lock.json
+package.json

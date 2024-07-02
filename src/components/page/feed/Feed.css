@@ -104,7 +104,6 @@
     font-size: 13px;
     font-weight: 400;
     white-space: nowrap;
-    margin-top: 3px;
 }
 
 .feed-more {
@@ -151,7 +150,7 @@
 .feed-post-info {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 7px;
     width: 100%;
     padding: 16px 0;
 }
@@ -175,12 +174,6 @@
     line-height: normal;
     width: 100%;
 }
-
-.post-email-content-more {
-    font-weight: bold;
-    margin-right: 4px;
-}
-
 
 .feed-post-more {
     color: rgb(114, 114, 114);
@@ -236,4 +229,3 @@
         transform: translateX(-50%);
     }
 }
-

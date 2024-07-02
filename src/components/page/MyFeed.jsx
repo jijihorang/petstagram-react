@@ -240,7 +240,7 @@ const ImageGrid = ({ getImageUrl, getVideoUrl, posts, onMediaClick }) => {
                             />
                             {post.imageList.length > 1 && (
                                 <img
-                                    src={icons.imgaeIcon}
+                                    src={icons.imageIcon}
                                     alt="multi-image-icon"
                                     className="myfeed-multi-image-icon"
                                 />

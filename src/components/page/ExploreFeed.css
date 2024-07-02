@@ -17,13 +17,14 @@
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 5px; /* 그리드 아이템 간의 간격 */
+    gap: 5px;
 }
 
 .grid-item {
     width: 365px;
     height: 365px;
     overflow: hidden;
+    position: relative;
 }
 
 .grid-item img {
@@ -31,16 +32,61 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.3s ease;
+}
+
+.grid-item:hover img {
+    transform: scale(1.1);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5rem;
+    flex-direction: column;
+}
+
+.grid-item:hover .overlay {
+    opacity: 1;
+}
+
+.overlay .info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.overlay .info span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay .info img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
 
 @media (max-width: 1100px) {
     .grid-container {
-        grid-template-columns: repeat(2, 1fr); /* 중간 크기 화면에서는 2열 */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 768px) {
     .grid-container {
-        grid-template-columns: 1fr; /* 작은 화면에서는 1열 */
+        grid-template-columns: 1fr;
     }
 }

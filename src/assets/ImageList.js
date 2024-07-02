@@ -22,10 +22,15 @@ import bookmarkIcon from "./feed/feed-save.png";
 import moreIcon from "./feed/feed-more.png";
 import BasicImage from "./basic-profile.jpeg";
 
+/* ExploreFeed */
+import heartwhite from "./ExploreFeed/explorefeed-heart.png";
+import commentwhite from "./ExploreFeed/explorefeed-comment.png";
+
+
 /* MyFeed */
 import shareIcon from "/src/assets/myfeed/myfeed-share.png";
 import videoIcon from "/src/assets/myfeed/myfeed-video.png";
-import imgaeIcon from "/src/assets/myfeed/myfeed-image.png";
+import imageIcon from "/src/assets/myfeed/myfeed-image.png";
 
 /* Webcam */
 import transform from "/src/assets/camera/transform.png";
@@ -91,7 +96,7 @@ const icons = {
     // Myfeed
     shareIcon,
     videoIcon,
-    imgaeIcon,
+    imageIcon,
 
     // Webcam
     transform,
@@ -128,6 +133,10 @@ const icons = {
     messageAudioClose,
     messagePauseIcon,
     messagePlayIcon,
+
+    // ExploreFeed
+    heartwhite,
+    commentwhite,
 };
 
 export default icons;

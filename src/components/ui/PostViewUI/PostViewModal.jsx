@@ -74,7 +74,7 @@ const PostViewModal = ({ post, deletePost, onClose, modalType }) => {
                         onClick: () => openModal("edit"),
                     },
                     ...commonOptions,
-                ];
+                ]; 
             case "feed":
                 return [
                     {
@@ -130,6 +130,30 @@ const PostViewModal = ({ post, deletePost, onClose, modalType }) => {
                         label: "팔로우 취소",
                         className: "moreoption-unfollow",
                         onClick: () => console.log("추후 작성"),
+                    },
+                    {
+                        label: "공유",
+                        className: "moreoption-share",
+                        onClick: () => {
+                            console.log("카카오톡 api 공유 추후 작성");
+                            closeModal("more");
+                        },
+                    },
+                    {
+                        label: isFollowing(post.userId)
+                            ? "팔로우 취소"
+                            : `${post.email}님 팔로우`,
+                        className: isFollowing(post.userId)
+                            ? "moreoption-unfollow"
+                            : "moreoption-follow",
+                        onClick: async () => {
+                            if (isFollowing(post.userId)) {
+                                await handleUnfollow(post.userId);
+                            } else {
+                                await handleFollow(post.userId);
+                            }
+                            closeModal("more");
+                        },
                     },
                     ...commonOptions,
                 ];

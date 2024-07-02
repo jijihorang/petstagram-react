@@ -17,6 +17,8 @@ import { FollowProvider } from "./contexts/FollowContext";
 import { CommentProvider } from "./contexts/CommentContext";
 import { ChatRoomProvider } from "./contexts/ChatRoomContext";
 
+import KakaoRedirect from "./components/page/KakaoRedirect";
+
 /* 컴포넌트 */
 import LoginForm from "./components/page/LoginForm";
 import FindPassword from "./components/page/FindPassword";
@@ -30,6 +32,7 @@ import HomeNav from "./components/common/HomeNav";
 import FriendNav from "./components/common/FriendNav";
 import SearchNav from "./components/common/SearchNav";
 import NotificationNav from "./components/common/NotificationNav";
+
 
 /* Hook */
 import useUser from "./components/hook/useUser";
@@ -213,6 +216,10 @@ const AppContent = () => {
                             <Navigate to="/login" />
                         )
                     }
+                />
+                <Route
+                    path="/login/oauth2/callback/kakao"
+                    element={<KakaoRedirect />}
                 />
             </Routes>
         </Router>
