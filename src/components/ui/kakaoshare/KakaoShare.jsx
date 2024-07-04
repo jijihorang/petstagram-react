@@ -12,7 +12,7 @@ const KakaoShare = ({ post }) => {
     }, []);
 
     const getImageUrl = (image) => {
-        return `https://aa8d-118-47-60-28.ngrok-free.app/uploads/${image.imageUrl}`;
+        return `https://b086-222-234-36-88.ngrok-free.app/uploads/${image.imageUrl}`;
     };
 
     const handleShareClick = () => {

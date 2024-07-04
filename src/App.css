@@ -5,7 +5,7 @@
   width: 100%;
 }
 
-.div {
+.app-main-wrapper {
   background-color: #ffffff;
   /* height: 100vh; */
   overflow: hidden;
@@ -33,21 +33,7 @@ button {
   border-radius: 5px;
 }
 
-.feed-container {
-  grid-column: 2 / 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.friendfeed-container {
-  grid-column: 2 / 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.myfeed-container {
+.feed-container, .friendfeed-container, .myfeed-container {
   grid-column: 2 / 3;
   display: flex;
   flex-direction: column;
@@ -56,5 +42,15 @@ button {
 
 .friend-nav-container {
   grid-column: 3 / 4;
+}
+
+/* 1080px �댄븯�먯꽌 friend-nav-container �④린湲� */
+@media (max-width: 1080px) {
+  .feed-container, .friendfeed-container, .myfeed-container{
+      grid-column: 2 / 7;
+  }
+  .friend-nav-container {
+      display: none;
+  }
 }
 

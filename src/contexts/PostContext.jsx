@@ -73,15 +73,15 @@ export const PostProvider = ({ children }) => {
     );
 
     /* 게시글 수정 */
-    const updatePost = useCallback(async (post, currentFile, currentText) => {
+    const updatePost = useCallback(async (post, currentFiles, currentText, existingImages, existingVideos) => {
         try {
             const postId = post.id;
-
+    
             const updatedPost = {
                 ...post,
                 postContent: currentText,
             };
-
+    
             const formData = new FormData();
             formData.append(
                 "post",
@@ -89,30 +89,31 @@ export const PostProvider = ({ children }) => {
                     type: "application/json",
                 })
             );
-            if (currentFile) {
-                // const currentBreed = await PostService.classifyImage(
-                //     currentFile
-                // );
-
-                formData.append("breed", "");
-                formData.append("file", currentFile);
-            } else {
-                // 기존 이미지 정보를 유지하기 위해 이미지 URL을 포함
-                if (post.imageList && post.imageList.length > 0) {
-                    formData.append("imageUrl", post.imageList[0].imageUrl);
-                }
-                if (post.videoList && post.videoList.length > 0) {
-                    formData.append("videoUrl", post.videoList[0].videoUrl);
+    
+            if (existingImages && existingImages.length > 0) {
+                existingImages.forEach((imageUrl) => {
+                    formData.append("imageUrl", imageUrl);
+                });
+            }
+    
+            if (existingVideos && existingVideos.length > 0) {
+                existingVideos.forEach((videoUrl) => {
+                    formData.append("videoUrl", videoUrl);
+                });
+            }
+    
+            if (currentFiles && currentFiles.length > 0) {
+                for (let i = 0; i < currentFiles.length; i++) {
+                    const file = currentFiles[i];
+                    const breed = await PostService.classifyImage(file);
+                    formData.append("breed", breed);
+                    formData.append("file", file);
                 }
             }
-
+    
             const token = localStorage.getItem("token");
-            const response = await PostService.updatePost(
-                postId,
-                formData,
-                token
-            );
-
+            const response = await PostService.updatePost(postId, formData, token);
+    
             setPostSuccess(true);
             return response.data;
         } catch (error) {
@@ -120,6 +121,7 @@ export const PostProvider = ({ children }) => {
             throw error;
         }
     }, []);
+    
 
     /* 게시글 삭제 */
     const deletePost = useCallback(async (postId) => {

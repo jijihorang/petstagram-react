@@ -110,7 +110,7 @@ const KakaoMapModal = ({ onClose, setSelectedAddress }) => {
     const displayPlaces = (places, page) => {
         const bounds = new window.kakao.maps.LatLngBounds();
         const newMarkers = [];
-        const pageSize = 2; // 페이지당 표시할 결과 수
+        const pageSize = 3; // 페이지당 표시할 결과 수
         const startIdx = (page - 1) * pageSize;
         const endIdx = Math.min(startIdx + pageSize, places.length);
 
@@ -236,7 +236,7 @@ const KakaoMapModal = ({ onClose, setSelectedAddress }) => {
                     </Map>
 
                     <PlacesList>
-                        {state.places.slice((state.currentPage - 1) * 2, state.currentPage * 2).map((place, index) => (
+                        {state.places.slice((state.currentPage - 1) * 3, state.currentPage * 3).map((place, index) => (
                             <KakaoMapListItem key={index} place={place} index={index} setSelectedAddress={setSelectedAddress} onClose={onClose} />
                         ))}
                     </PlacesList>
@@ -266,7 +266,7 @@ const ModalContent = styled.div`
     background: #fff;
     padding: 20px;
     border-radius: 10px;
-    width: 80%;
+    width: 87%;
     max-width: 1300px;
     position: relative;
 `;

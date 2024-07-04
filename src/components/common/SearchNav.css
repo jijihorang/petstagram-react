@@ -45,7 +45,7 @@
     border: none;
     color: rgb(115, 115, 115);
     cursor: pointer;
-    font-size: 20px;
+    font-size: 23px;
     margin-left: auto;
 }
 
@@ -57,31 +57,53 @@
     flex-direction: column;
 }
 
-.search-item {
-    padding: 10px 30px 10px 30px; 
+.search-item,
+.search-recent-item {
+    padding: 10px 30px 10px 30px;
     display: flex;
     align-items: center;
     cursor: pointer;
-    justify-content: space-between; 
+    justify-content: space-between;
 }
 
-.search-info {
+.search-info,
+.search-recent-info {
     display: flex;
     align-items: center;
-    flex-grow: 1; 
+    flex-grow: 1;
 }
 
-.search-icon-wrapper {
-    margin-right: 10px; 
+.search-icon-wrapper,
+.search-recent-icon-wrapper {
+    margin-right: 20px;
     display: flex;
     align-items: center;
+    border: 1px solid rgb(224, 224, 224);
+    border-radius: 50%;
 }
 
-.search-profile-image {
-    border-radius: 50%; /* 이미지를 동그랗게 만듭니다 */
-    width: 60px; /* 이미지의 너비를 설정합니다 */
-    height: 60px; /* 이미지의 높이를 설정합니다 */
-    object-fit: cover; /* 이미지를 컨테이너에 맞게 조정합니다 */
+.search-profile-image,
+.search-hashtags-image {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.search-user-email,
+.search-hashtags-name,
+.search-recent-user-email,
+.search-recent-hashtags-name {
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.search-recent-user-bio,
+.search-user-name,
+.search-user-bio,
+.search-hastags-count {
+    font-size: 17px;
+    color: rgb(99, 99, 99);
 }
 
 .hidden {

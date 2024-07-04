@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MyFeed.css";
 
 import useUser from "../hook/useUser";
@@ -11,11 +12,11 @@ import ProfileUpdateModal from "../ui/ProfileUpdateModal";
 import FollowListModal from "../ui/FollowListModal";
 import SelectUpload from "../ui/SelectUpload";
 import PostViewModal from "../ui/PostViewUI/PostViewModal";
-
-import icons from "../../assets/ImageList";
-
 import SettingModal from "../ui/settingUI/SettingModal";
 
+import MyStoryStorage from "./myfeed/MyStoryStorage";
+
+import icons from "../../assets/ImageList";
 
 const MyFeed = () => {
     const { profileInfo } = useUser();
@@ -39,6 +40,7 @@ const MyFeed = () => {
         useFollowCounts(profileInfo.id);
 
     const [selectedPost, setSelectedPost] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchUserPosts(profileInfo.id);
@@ -80,6 +82,7 @@ const MyFeed = () => {
                 onFollowingModalOpen={() => openModal("followingList")}
                 onUploadModalOpen={() => openModal("upload")}
                 onSettingModalOpen={() => openModal("setting")}
+                navigate={navigate}
             />
             <div className="myfeed-container">
                 {images.length === 0 && videos.length === 0 ? (
@@ -135,7 +138,7 @@ const MyFeed = () => {
                     modalType="myfeed"
                 />
             )}
-            {isModalOpen("setting") && ( // SettingModal 열림
+            {isModalOpen("setting") && (
                 <SettingModal
                     onClose={() => closeModal("setting")}
                     profileInfo={profileInfo}
@@ -153,7 +156,8 @@ const UserProfile = ({
     onProfileModalOpen,
     onFollowerModalOpen,
     onFollowingModalOpen,
-    onSettingModalOpen
+    onSettingModalOpen,
+    navigate,
 }) => (
     <div className="myfeed-user-info">
         <div className="myfeed-user-avatar">
@@ -169,10 +173,10 @@ const UserProfile = ({
                     >
                         프로필 편집
                     </button>
-                    <button className="myfeed-story-btn">
+                    <button className="myfeed-story-btn" onClick={() => {navigate("/mystory")}}>
                         보관된 스토리 보기
                     </button>
-                    <button className="myfeed-settings-btn"> {/* 설정 버튼 클릭 시 SettingModal 열림 */}
+                    <button className="myfeed-settings-btn">
                         <span onClick={onSettingModalOpen}>⚙️</span>
                     </button>
                 </div>
@@ -240,7 +244,7 @@ const ImageGrid = ({ getImageUrl, getVideoUrl, posts, onMediaClick }) => {
                             />
                             {post.imageList.length > 1 && (
                                 <img
-                                    src={icons.imageIcon}
+                                    src={icons.imgaeIcon}
                                     alt="multi-image-icon"
                                     className="myfeed-multi-image-icon"
                                 />

@@ -1,7 +1,7 @@
 import React from "react";
-import GetRelativeTime from "../../../utils/GetRelativeTime";
 import icons from "../../../assets/ImageList";
 import EmojiPicker from "../EmojiPicker";
+import { getDisplayTime } from "../../../utils/GetNotiTime";
 
 const PostViewFooter = ({
     currentPost,
@@ -48,7 +48,7 @@ const PostViewFooter = ({
                     <span className="postview-likes-text">가장 먼저 좋아요를 눌러보세요</span>
                 )}
             </div>
-            <div className="postview-likes-date">{GetRelativeTime(currentPost.regTime)}</div>
+            <div className="postview-likes-date">{getDisplayTime(currentPost.regTime)}</div>
 
             <div className="postview-likes-input-section">
                 <img src={icons.smileIcon} alt="smile-icon" className="postview-likes-input-icon" onClick={() => toggleModal("emojiPicker")} />

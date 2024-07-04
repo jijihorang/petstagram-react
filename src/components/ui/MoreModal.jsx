@@ -1,6 +1,19 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
+const ModalOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+`;
+
 const MoreModalContainer = styled.div`
     width: 300px;
     background-color: white;
@@ -39,33 +52,35 @@ const MoreOption = styled.div`
 `;
 
 const MoreModal = ({ options }) => {
-    useEffect(() => {
-        // 모달이 열렸을 때 부모 컴포넌트의 스크롤을 막음
-        const parentDiv = document.querySelector(".app .div");
-        const originalStyle = parentDiv.style.overflowY;
-        parentDiv.style.overflowY = "hidden";
+    // useEffect(() => {
+    //     // 모달이 열렸을 때 부모 컴포넌트의 스크롤을 막음
+    //     const parentDiv = document.querySelector(".app .app-main-wrapper");
+    //     const originalStyle = parentDiv.style.overflowY;
+    //     parentDiv.style.overflowY = "hidden";
 
-        return () => {
-            parentDiv.style.overflowY = originalStyle;
-        };
-    }, []);
+    //     return () => {
+    //         parentDiv.style.overflowY = originalStyle;
+    //     };
+    // }, []);
 
-    if (!Array.isArray(options)) {
-        options = [];
-    }
+    // if (!Array.isArray(options)) {
+    //     options = [];
+    // }
 
     return (
-        <MoreModalContainer onClick={(e) => e.stopPropagation()}>
-            {options.map((option, index) => (
-                <MoreOption
-                    key={index}
-                    className={option.className}
-                    onClick={option.onClick}
-                >
-                    {option.label}
-                </MoreOption>
-            ))}
-        </MoreModalContainer>
+        <ModalOverlay>
+            <MoreModalContainer onClick={(e) => e.stopPropagation()}>
+                {options.map((option, index) => (
+                    <MoreOption
+                        key={index}
+                        className={option.className}
+                        onClick={option.onClick}
+                    >
+                        {option.label}
+                    </MoreOption>
+                ))}
+            </MoreModalContainer>
+        </ModalOverlay>
     );
 };
 

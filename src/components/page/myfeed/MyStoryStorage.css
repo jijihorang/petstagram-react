@@ -1,0 +1,142 @@
+.mystory {
+    background-color: #ffffff;
+    width: auto;
+    height: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    position: relative;
+    height: auto;
+}
+
+.mystory-frame {
+    position: relative;
+    top: 30px;
+    width: 1500px;
+    height: auto;
+}
+
+.mystory-prev {
+    display: flex;
+    align-items: center;
+    padding: 30px 0;
+}
+
+.mystory-prev img {
+    width: 35px;
+    height: 35px;
+    margin-right: 20px;
+}
+
+.mystory-prev span {
+    color: #000;
+    font-size: 1.8rem;
+    font-weight: 400;
+}
+
+.mystory-story-header {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.mystory-story-header-wrapper {
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #000;
+    padding-bottom: 20px;
+    justify-content: center;
+    display: flex;
+    position: relative;
+}
+
+.mystory-story-header-wrapper img {
+    width: 30px;
+    height: 30px;
+}
+
+.mystory-story-header-div {
+    position: relative;
+    border-bottom: 3px solid black;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    top: 22px;
+    padding-bottom: 20px;
+}
+
+.mystory-story-noti {
+    display: flex;
+    padding: 50px 0;
+    color: rgb(104, 104, 104);
+}
+
+.mystory-divider {
+    margin: 0;
+    border: none;
+}
+
+.mystory-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 33px;
+}
+
+.mystory-grid-item {
+    position: relative; 
+    border: 1px solid #ddd;
+    overflow: hidden;
+    width: 350px;
+    height: 580px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease; /
+}
+
+.mystory-grid-image, .mystory-grid-video {
+    height: 100%;
+    /* max-width: 100%;
+    max-height: 100%; */
+    object-fit: contain;
+}
+
+.mystory-date {
+    position: absolute; 
+    top: 20px; 
+    left: 20px; 
+    background-color: white; 
+    color: black; 
+    padding: 5px 10px; 
+    border-radius: 10px; 
+    z-index: 10; 
+    text-align: center;
+}
+
+.mystory-date .date-column .day {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.mystory-date .date-column .month {
+    font-size: 1.4rem;
+}
+
+.mystory-date .date-column .year {
+    font-size: 1.1rem;
+}
+
+.mystory-grid-item:hover {
+    transform: scale(1.1); 
+}
+
+@media (max-width: 1100px) {
+    .mystory-frame {
+        width: 730px;
+    }
+
+    .mystory-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        width: 700px;
+    }
+}

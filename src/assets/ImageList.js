@@ -1,3 +1,6 @@
+/* Login */
+import kakaoLogin from "./kakaotalk.png";
+
 /* HomeNav */
 import homeIcon from "/src/assets/homenav/menu-home.png";
 import homeIconFilled from "/src/assets/homenav/menu-home-filled.png";
@@ -20,17 +23,18 @@ import heartFillIcon from "./feed/feed-heart-fill.png";
 import postShareIcon from "./feed/feed-share.png";
 import bookmarkIcon from "./feed/feed-save.png";
 import moreIcon from "./feed/feed-more.png";
+import slidePrevIcon from "./feed/feed-slide-prev.png";
+import slideNextIcon from "./feed/feed-slide-next.png";
 import BasicImage from "./basic-profile.jpeg";
 
 /* ExploreFeed */
-import heartwhite from "./ExploreFeed/explorefeed-heart.png";
-import commentwhite from "./ExploreFeed/explorefeed-comment.png";
-
+import heartwhite from "./explorefeed/explorefeed-heart.png";
+import commentwhite from "./explorefeed/explorefeed-comment.png";
 
 /* MyFeed */
 import shareIcon from "/src/assets/myfeed/myfeed-share.png";
 import videoIcon from "/src/assets/myfeed/myfeed-video.png";
-import imageIcon from "/src/assets/myfeed/myfeed-image.png";
+import imgaeIcon from "/src/assets/myfeed/myfeed-image.png";
 
 /* Webcam */
 import transform from "/src/assets/camera/transform.png";
@@ -52,6 +56,7 @@ import photoIcon from "./postmodal/photo.png";
 import smileIcon from "./postmodal/smile.png";
 import locationIcon from "./postmodal/location.png";
 import underArrowIcon from "./postmodal/under.png";
+import addHashTagIcon from "./postmodal/hashtag-add.png";
 
 /* FindPassword */
 import lockIcon from "./find-password.png";
@@ -67,8 +72,34 @@ import messageWriteClose from "./message/message-close.png";
 import messageAudioClose from "./message/message-close2.png";
 import messagePauseIcon from "./message/message-pause.png";
 import messagePlayIcon from "./message/message-play.png";
+import messageDogIcon from "./message/message-dog.png";
+
+/* Setting Modal */
+import settingBackIcon from "./settingmodal/setting-back.png";
+import settingNextIcon from "./settingmodal/setting-next-button.png";
+import settingCloseIcon from "./settingmodal/setting-close.png";
+import settingConnectionIcon from "./settingmodal/setting-connection.png";
+import settingMetaIcon from "./settingmodal/setting-meta.png";
+import settingUserProfileIcon from "./settingmodal/setting-user-profile.png";
+
+/* HashTags Modal */
+import hashTagsIcon from "./hashtag/hashtag-icon.png";
+
+/* Story */
+import storyCameraBtn from "./story/story-camera-button.png";
+import storyGallery from "./story/story-gallery.png";
+import storyText from "./story/story-text.png";
+import storyHashtag from "./story/story-hashtag.png";
+import storyUpload from "./story/story-upload.png";
+import storyClose from "./story/story-close-button.png";
+
+/* MyStory */
+import backIcon from "./mystory/mystory-back-btn.png";
+import myStoryIcon from "./mystory/mystory-story.png";
 
 const icons = {
+    kakaoLogin,
+
     // HomeNav
     homeIcon,
     homeIconFilled,
@@ -84,6 +115,10 @@ const icons = {
     menuMoreIcon,
     menuMoreIconFilled,
 
+    // ExploreFeed
+    heartwhite,
+    commentwhite,
+
     // Feed
     commentIcon,
     heartIcon,
@@ -91,12 +126,14 @@ const icons = {
     postShareIcon,
     bookmarkIcon,
     moreIcon,
+    slidePrevIcon,
+    slideNextIcon,
     BasicImage,
 
     // Myfeed
     shareIcon,
     videoIcon,
-    imageIcon,
+    imgaeIcon,
 
     // Webcam
     transform,
@@ -118,6 +155,7 @@ const icons = {
     smileIcon,
     locationIcon,
     underArrowIcon,
+    addHashTagIcon,
 
     // FindPassword
     lockIcon,
@@ -133,10 +171,30 @@ const icons = {
     messageAudioClose,
     messagePauseIcon,
     messagePlayIcon,
+    messageDogIcon,
 
-    // ExploreFeed
-    heartwhite,
-    commentwhite,
+    // Setting Modal
+    settingBackIcon,
+    settingNextIcon,
+    settingCloseIcon,
+    settingConnectionIcon,
+    settingMetaIcon,
+    settingUserProfileIcon,
+
+    // HashTags Modal
+    hashTagsIcon,
+
+    /* Story */
+    storyCameraBtn,
+    storyGallery,
+    storyText,
+    storyHashtag,
+    storyUpload,
+    storyClose,
+
+    /* MyStory */
+    backIcon,
+    myStoryIcon,
 };
 
 export default icons;

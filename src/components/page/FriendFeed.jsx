@@ -40,9 +40,11 @@ const FriendFeed = () => {
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false);
     const { openModal, closeModal, isModalOpen } = useModal();
 
-    const getImageUrl = (imageUrl) => {
-        return `http://localhost:8088/uploads/${imageUrl}`;
-    };
+    const getImageUrl = (image) =>
+        `http://localhost:8088/uploads/${image.imageUrl}`;
+
+    const getVideoUrl = (video) =>
+        `http://localhost:8088/uploads/${video.videoUrl}`;
 
     useEffect(() => {
         const user = allUserProfiles.find(
@@ -240,13 +242,24 @@ const FriendFeed = () => {
                 <div className="friendfeed-grid-container">
                     {filteredPostUserList.map((post, index) => (
                         <div key={index} className="friendfeed-grid-item">
-                            {post.imageList.map((image, imgIndex) => (
-                                <img
-                                    key={imgIndex}
-                                    src={getImageUrl(image.imageUrl)}
-                                    alt={`grid-${index}-${imgIndex}`}
-                                />
-                            ))}
+                            {post.imageList && post.imageList.length > 0 && (
+                                <div className="image-wrapper">
+                                    <img
+                                        src={getImageUrl(post.imageList[0])}
+                                        alt={`grid-${index}-img-0`}
+                                        className="friendfeed-grid-image"
+                                    />
+                                </div>
+                            )}
+                            {post.videoList && post.videoList.length > 0 && (
+                                <video
+                                    key={index}
+                                    src={getVideoUrl(post.videoList[0])}
+                                    className="friendfeed-grid-video"
+                                >
+                                    Your browser does not support the video tag.
+                                </video>
+                            )}
                         </div>
                     ))}
                 </div>

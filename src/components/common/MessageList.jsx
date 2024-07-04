@@ -8,8 +8,9 @@ import useAllUser from "../hook/useAllUser";
 import useModal from "../hook/useModal";
 
 import CreateChatRoom from "../ui/message/CreateChatRoom";
-import GetRelativeTime from "../../utils/GetRelativeTime";
 import icons from "../../assets/ImageList";
+
+import { getDisplayTime } from "../../utils/GetNotiTime";
 
 const MessageList = () => {
     const { openModal, closeModal, isModalOpen } = useModal();
@@ -21,14 +22,6 @@ const MessageList = () => {
     const handleChatRoomUserClick = async (chatRoomId) => {
         await handleUserClick(chatRoomId);
         navigate(`/messages/${chatRoomId}`, { state: { chatRoomId } }); // 채팅방 ID를 state로 전달
-    };
-
-    // 새로운 메시지가 있는지 확인하는 함수
-    const hasNewMessage = (chatRoom) => {
-        const unreadMessagesExist = chatRoom.messages.some(
-            (message) => !message.hasUnreadMessage
-        );
-        return unreadMessagesExist;
     };
 
     return (
@@ -66,7 +59,7 @@ const MessageList = () => {
 
                     const lastMessageTime =
                         chatRoom.messages.length > 0
-                            ? GetRelativeTime(chatRoom.messages[0].regTime)
+                            ? getDisplayTime(chatRoom.messages[0].regTime)
                             : "";
 
                     let profileImageUrl;
@@ -84,14 +77,11 @@ const MessageList = () => {
                         );
                     }
 
-                    const hasNew = hasNewMessage(chatRoom);
-
                     return (
                         <div
                             key={chatRoom.id}
-                            className={`Message_message_item ${
-                                hasNew ? "new-message" : "read-message"
-                            }`}
+                            className={`Message_message_item ${chatRoom.unreadMessageCount > 0 ? "new-message" : "read-message"
+                                }`}
                             onClick={() => handleChatRoomUserClick(chatRoom.id)}
                         >
                             <img
@@ -111,7 +101,7 @@ const MessageList = () => {
                                     </span>
                                 </div>
                             </div>
-                            {hasNew && <div className="Message_post-ellipse" />}
+                            {chatRoom.unreadMessageCount > 0 && <div className="Message_post-ellipse" />}
                         </div>
                     );
                 })

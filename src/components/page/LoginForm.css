@@ -79,15 +79,17 @@ a {
     color: #3d5081;
 }
 
-.facebook-login {
-    text-align: center;
-    font-size: 17px;
-    font-weight: bold;
+.social-login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-.facebook-login img {
-    width: 14px;
+.social-login-wrapper img {
+    width: 45px;
     height: auto;
+    border-radius: 50%;
     margin-right: 5px;
 }
 
@@ -123,3 +125,4 @@ a {
 .signup-link:hover {
     color: #4193ef;
 }
+

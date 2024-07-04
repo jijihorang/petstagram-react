@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./PostViewModal.css";
-import GetRelativeTime from "../../../utils/GetRelativeTime";
 import icons from "../../../assets/ImageList";
+import { getDisplayTime } from "../../../utils/GetNotiTime";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -11,14 +11,14 @@ import useLikeStatus from "../../hook/useLikeStatus";
 import useComment from "../../hook/useComment";
 import useModal from "../../hook/useModal";
 import useAllUser from "../../hook/useAllUser";
+import useFollow from "../../hook/useFollow";
 
 import PageEditModal from "../PageEditModal";
 import MoreModal from "../MoreModal";
+import BanReportModal from "../BanReportModal";
 
 import PostViewComment from "./PostViewComment";
 import PostViewFooter from "./PostViewFooter";
-import useFollow from "../../hook/useFollow";
-import BanReportModal from "../BanReportModal";
 
 const PostViewModal = ({ post, deletePost, onClose, modalType }) => {
     const { allUserProfiles } = useAllUser();
@@ -52,6 +52,16 @@ const PostViewModal = ({ post, deletePost, onClose, modalType }) => {
         replyCommentLiked,
     } = useComment();
 
+    useEffect(() => {
+        // 모달이 열릴 때 body 스크롤 막기
+        document.body.style.overflow = "hidden";
+
+        // 모달이 닫힐 때 body 스크롤 허용
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, []);
+
     const getModalOptions = () => {
         const commonOptions = [
             {
@@ -74,7 +84,7 @@ const PostViewModal = ({ post, deletePost, onClose, modalType }) => {
                         onClick: () => openModal("edit"),
                     },
                     ...commonOptions,
-                ]; 
+                ];
             case "feed":
                 return [
                     {
@@ -130,30 +140,6 @@ const PostViewModal = ({ post, deletePost, onClose, modalType }) => {
                         label: "팔로우 취소",
                         className: "moreoption-unfollow",
                         onClick: () => console.log("추후 작성"),
-                    },
-                    {
-                        label: "공유",
-                        className: "moreoption-share",
-                        onClick: () => {
-                            console.log("카카오톡 api 공유 추후 작성");
-                            closeModal("more");
-                        },
-                    },
-                    {
-                        label: isFollowing(post.userId)
-                            ? "팔로우 취소"
-                            : `${post.email}님 팔로우`,
-                        className: isFollowing(post.userId)
-                            ? "moreoption-unfollow"
-                            : "moreoption-follow",
-                        onClick: async () => {
-                            if (isFollowing(post.userId)) {
-                                await handleUnfollow(post.userId);
-                            } else {
-                                await handleFollow(post.userId);
-                            }
-                            closeModal("more");
-                        },
                     },
                     ...commonOptions,
                 ];
@@ -262,21 +248,19 @@ const PostViewModal = ({ post, deletePost, onClose, modalType }) => {
                                 ))}
                             </Slider>
                             {currentSlide > 0 && (
-                                <button
-                                    className="slider-button slider-button-left"
-                                    onClick={previous}
-                                >
-                                    {"<"}
-                                </button>
+                                <img
+                                src={icons.slidePrevIcon}
+                                className="slider-button slider-button-left"
+                                onClick={previous}
+                            />
                             )}
                             {currentSlide <
                                 currentPost.imageList.length - 1 && (
-                                <button
+                                <img
+                                    src={icons.slideNextIcon}
                                     className="slider-button slider-button-right"
                                     onClick={next}
-                                >
-                                    {">"}
-                                </button>
+                                />
                             )}
 
                             {currentPost.videoList &&
@@ -332,7 +316,7 @@ const PostViewModal = ({ post, deletePost, onClose, modalType }) => {
                                             </div>
                                         </div>
                                         <div className="postview-content-date">
-                                            {GetRelativeTime(
+                                            {getDisplayTime(
                                                 currentPost.regTime
                                             )}
                                         </div>

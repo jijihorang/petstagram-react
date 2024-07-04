@@ -1,0 +1,152 @@
+.story-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgb(26, 26, 26);
+    color: #fff;
+    position: relative;
+}
+
+.story-upload-header {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.story-upload-header-right {
+    display: flex;
+    gap: 10px;
+}
+
+.story-upload-header-icon {
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.story-upload-webcam-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hidden-webcam {
+    display: none;
+}
+
+.story-upload-webcam {
+    width: 600px;
+    height: 900px;
+    object-fit: cover;
+}
+
+.story-upload-capture-button {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+
+.story-upload-file-input-hidden {
+    display: none;
+}
+
+.story-upload-file-button {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    width: 45px;
+    height: auto;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.story-upload-file-options {
+    display: flex;
+    gap: 10px;
+}
+
+.story-upload-file-options span.active {
+    color: yellow;
+}
+
+.story-upload-media-wrapper {
+    position: relative;
+    width: 600px;
+    height: 900px;
+}
+
+.story-upload-video,
+.story-upload-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.story-upload-draggable-container {
+    position: absolute;
+    top: 50%;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-upload-draggable-text-input {
+    color: white;
+    background-color: transparent;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    width: auto;
+    max-width: 100%;
+    outline: none;
+}
+
+.text-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+    color: #fff;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.text-controls label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.vertical-slider {
+    -webkit-appearance: slider-vertical;
+    width: 8px;
+    height: 150px;
+    background: #ddd;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.15s ease-in-out;
+}
+
+.vertical-slider:hover {
+    opacity: 1;
+}

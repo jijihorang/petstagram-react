@@ -5,13 +5,13 @@
     margin: 0 auto;
     position: relative;
     height: auto;
-    padding-bottom: 30px; 
+    padding-bottom: 30px;
 }
 .story-container {
     display: flex;
     justify-content: flex-start;
     width: 100%;
-    max-width: 700px; 
+    max-width: 700px;
     margin: 30px;
     margin-left: -70px;
 }
@@ -24,23 +24,44 @@
     height: auto;
 }
 
+.feed-post-videos {
+    background-color: black;
+}
+
+.feed-post-photos {
+    position: relative;
+}
+
 .feed-post-photo,
 .feed-post-video {
-    background-color: black;
     width: 100%;
-    object-fit: cover;
+    height: 624px;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+    background-color: black;
 }
 
 .feed-post-photo.tall,
 .feed-post-video.tall {
-    height: 624px;
+    object-fit: cover;
+    background-color: black;
 }
 
 .feed-post-photo.wide,
 .feed-post-video.wide {
+    object-fit: contain;
+    background-color: black;
+}
+
+.feed-post-video.wide {
     height: auto;
 }
 
+.feed-post-video.tall {
+    width: auto;
+    height: 624px;
+}
 
 .feed-info {
     width: 100%;
@@ -69,6 +90,14 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    flex-wrap: wrap;
+}
+
+.feed-writer-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
 }
 
 .feed-writer-name,
@@ -104,13 +133,14 @@
     font-size: 13px;
     font-weight: 400;
     white-space: nowrap;
+    flex-basis: 100%;
 }
 
 .feed-more {
     margin-bottom: 0px;
 }
 
-.feed-more-btn {   
+.feed-more-btn {
     background-color: white !important;
     border: none;
     cursor: pointer;
@@ -122,9 +152,8 @@
 }
 
 .feed-active {
-    height: 54px;
+    margin: 10px 0;
     width: 100%;
-    padding: 16px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -173,6 +202,20 @@
     letter-spacing: 0;
     line-height: normal;
     width: 100%;
+    white-space: pre-wrap;
+}
+.feed-post-content-writer {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.feed-post-contents {
+    font-size: 16px;
+}
+
+.feed-post-content-hashtags {
+    color: rgb(20, 54, 103);
+    font-size: 16px;
 }
 
 .feed-post-more {
@@ -228,4 +271,26 @@
         left: 50%;
         transform: translateX(-50%);
     }
+}
+
+.feed-slider-button-prev,
+.feed-slider-button-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.feed-slider-button-prev {
+    left: 10px;
+}
+
+.feed-slider-button-next {
+    right: 10px;
 }

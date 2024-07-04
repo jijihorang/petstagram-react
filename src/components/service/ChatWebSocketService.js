@@ -17,10 +17,10 @@ export const connect = (
     stompClient = new Client({
         webSocketFactory: () => socket,
         debug: (str) => {
-            console.log(str);
+            // console.log(str);
         },
         onConnect: () => {
-            console.log("Connected to WebSocket");
+            // console.log("Connected to WebSocket");
 
             // 채팅방 구독 설정
             stompClient.subscribe(`/sub/chat/room/${chatRoomId}`, (message) => {
@@ -47,11 +47,11 @@ export const connect = (
             );
         },
         onDisconnect: (frame) => {
-            console.log("Disconnected from WebSocket", frame);
+            // console.log("Disconnected from WebSocket", frame);
         },
         onStompError: (frame) => {
-            console.error(`Broker reported error: ${frame.headers.message}`);
-            console.error(`Additional details: ${frame.body}`);
+            // console.error(`Broker reported error: ${frame.headers.message}`);
+            // console.error(`Additional details: ${frame.body}`);
         },
     });
 
@@ -79,15 +79,12 @@ export const sendMessageWithImage = async (
             imageUrls,
         };
 
-        console.log("imageUrl :", imageUrls);
-
         // 메시지와 이미지를 함께 전송
         stompClient.publish({
             destination: `/pub/sendMessage/${chatRoomId}`,
             body: JSON.stringify(payload),
         });
 
-        console.log("Message sent successfully");
     } catch (error) {
         console.error("Failed to send message:", error.message);
     }
@@ -112,7 +109,6 @@ export const sendMessageWithAudio = async (
             audioUrl,
         };
 
-        console.log("audioUrl :", audioUrl);
 
         // 음성 메시지를 전송
         stompClient.publish({
@@ -120,7 +116,6 @@ export const sendMessageWithAudio = async (
             body: JSON.stringify(payload),
         });
 
-        console.log("Audio message sent successfully");
     } catch (error) {
         console.error("Failed to send audio message:", error.message);
     }
@@ -140,6 +135,5 @@ export const disconnect = (chatRoomId, userEmail) => {
         });
 
         stompClient.deactivate();
-        console.log("Disconnected from WebSocket");
     }
 };

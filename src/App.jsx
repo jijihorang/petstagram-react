@@ -16,8 +16,7 @@ import { ModalProvider } from "./contexts/ModalContext";
 import { FollowProvider } from "./contexts/FollowContext";
 import { CommentProvider } from "./contexts/CommentContext";
 import { ChatRoomProvider } from "./contexts/ChatRoomContext";
-
-import KakaoRedirect from "./components/page/KakaoRedirect";
+import { StoryProvider } from "./contexts/StoryContext";
 
 /* 컴포넌트 */
 import LoginForm from "./components/page/LoginForm";
@@ -28,11 +27,11 @@ import FriendFeed from "./components/page/FriendFeed";
 import ExploreFeed from "./components/page/ExploreFeed";
 import MyFeed from "./components/page/MyFeed";
 import Message from "./components/page/Message";
+import StoryView from "./components/page/StoryView";
 import HomeNav from "./components/common/HomeNav";
 import FriendNav from "./components/common/FriendNav";
 import SearchNav from "./components/common/SearchNav";
 import NotificationNav from "./components/common/NotificationNav";
-
 
 /* Hook */
 import useUser from "./components/hook/useUser";
@@ -40,9 +39,13 @@ import useNav from "./components/hook/useNav";
 
 /* Utils */
 import DogCursor from "./utils/DogCursor";
+import FeedStoryUpload from "./components/page/feed/FeedStoryUpload";
+import KakaoCallback from "./utils/KakaoCallback";
+import MyStoryStorage from "./components/page/myfeed/MyStoryStorage";
+import MyStoryView from "./components/page/myfeed/MyStoryView";
 
 const AppContent = () => {
-    const { isLoggedIn, setIsLoggedIn } = useUser();
+    const { isLoggedIn, setIsLoggedIn, profileInfo } = useUser();
     const { navState } = useNav();
 
     return (
@@ -59,6 +62,10 @@ const AppContent = () => {
                             <LoginForm setIsLoggedIn={setIsLoggedIn} />
                         )
                     }
+                />
+                <Route
+                    path="/login/oauth2/callback/kakao"
+                    element={<KakaoCallback setIsLoggedIn={setIsLoggedIn} />} 
                 />
                 <Route
                     path="/signup"
@@ -81,7 +88,7 @@ const AppContent = () => {
                     element={
                         isLoggedIn ? (
                             <div className="app">
-                                <div className="div">
+                                <div className="app-main-wrapper">
                                     {!navState.explore && (
                                         <>
                                             <div className="feed-container">
@@ -111,9 +118,32 @@ const AppContent = () => {
                     element={
                         isLoggedIn ? (
                             <div className="app">
-                                <div className="div">
+                                <div className="app-main-wrapper">
                                     <div className="feed-container">
                                         <ExploreFeed />{" "}
+                                    </div>
+                                    <div className="main-container">
+                                        <HomeNav />
+                                        {navState.search && <SearchNav />}
+                                        {navState.notification && (
+                                            <NotificationNav />
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
+                />
+                <Route
+                    path="/explore/:hashtag"
+                    element={
+                        isLoggedIn ? (
+                            <div className="app">
+                                <div className="app-main-wrapper">
+                                    <div className="feed-container">
+                                        <ExploreFeed />
                                     </div>
                                     <div className="main-container">
                                         <HomeNav />
@@ -134,7 +164,7 @@ const AppContent = () => {
                     element={
                         isLoggedIn ? (
                             <div className="app">
-                                <div className="div">
+                                <div className="app-main-wrapper">
                                     <Message />
                                     <div className="main-container">
                                         <HomeNav />
@@ -155,9 +185,32 @@ const AppContent = () => {
                     element={
                         isLoggedIn ? (
                             <div className="app">
-                                <div className="div">
+                                <div className="app-main-wrapper">
                                     <div className="myfeed-container">
-                                        <MyFeed />{" "}
+                                        <MyFeed />
+                                    </div>
+                                    <div className="main-container">
+                                        <HomeNav />
+                                        {navState.search && <SearchNav />}
+                                        {navState.notification && (
+                                            <NotificationNav />
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
+                />
+                <Route
+                    path="/mystory"
+                    element={
+                        isLoggedIn ? (
+                            <div className="app">
+                                <div className="app-main-wrapper">
+                                    <div className="myfeed-container">
+                                        <MyStoryStorage userId={profileInfo.id}/>
                                     </div>
                                     <div className="main-container">
                                         <HomeNav />
@@ -178,7 +231,7 @@ const AppContent = () => {
                     element={
                         isLoggedIn ? (
                             <div className="app">
-                                <div className="div">
+                                <div className="app-main-wrapper">
                                     <div className="friendfeed-container">
                                         <FriendFeed />
                                     </div>
@@ -201,7 +254,7 @@ const AppContent = () => {
                     element={
                         isLoggedIn ? (
                             <div className="app">
-                                <div className="div">
+                                <div className="app-main-wrapper">
                                     <Message />
                                     <div className="main-container">
                                         <HomeNav />
@@ -218,8 +271,28 @@ const AppContent = () => {
                     }
                 />
                 <Route
-                    path="/login/oauth2/callback/kakao"
-                    element={<KakaoRedirect />}
+                    path="/story-upload"
+                    element={
+                        isLoggedIn ? (
+                            <div className="app">
+                                <FeedStoryUpload />
+                            </div>
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
+                />
+                <Route
+                    path="/story-detail/:id"
+                    element={
+                        isLoggedIn ? <StoryView /> : <Navigate to="/login" />
+                    }
+                />
+                <Route
+                    path="/mystory-view/:date"
+                    element={
+                        isLoggedIn ? <MyStoryView /> : <Navigate to="/login" />
+                    }
                 />
             </Routes>
         </Router>
@@ -235,7 +308,9 @@ const App = () => (
                         <FollowProvider>
                             <ModalProvider>
                                 <ChatRoomProvider>
-                                    <AppContent />
+                                    <StoryProvider>
+                                        <AppContent />
+                                    </StoryProvider>
                                 </ChatRoomProvider>
                             </ModalProvider>
                         </FollowProvider>

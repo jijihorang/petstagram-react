@@ -13,6 +13,16 @@ moment.updateLocale("ko", {
         d: "1일",
         dd: (number) =>
             number < 7 ? number + "일" : Math.floor(number / 7) + "주",
+        M: "4주",
+        MM: (number) => {
+            const weeks = Math.floor(number * 4);
+            return weeks + "주";
+        },
+        y: "52주",
+        yy: (number) => {
+            const weeks = Math.floor(number * 52);
+            return weeks + "주";
+        },
     },
 });
 

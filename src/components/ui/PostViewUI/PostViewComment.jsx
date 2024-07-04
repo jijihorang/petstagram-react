@@ -1,8 +1,9 @@
 import React from "react";
-import GetRelativeTime from "../../../utils/GetRelativeTime";
-import icons from "../../../assets/ImageList";
 import MoreModal from "../MoreModal";
-import useUser from "../../hook/useUser"; // 사용자 정보를 가져오기 위해 import
+import useUser from "../../hook/useUser"; 
+
+import icons from "../../../assets/ImageList";
+import { getDisplayTime } from "../../../utils/GetNotiTime";
 
 const PostViewComment = ({
     comment,
@@ -123,7 +124,7 @@ const PostViewComment = ({
                     </div>
                     <div className="postview-comments-footer">
                         <div className="postview-comments-date">
-                            {GetRelativeTime(comment.commentRegTime)}
+                            {getDisplayTime(comment.commentRegTime)}
                         </div>
                         {commentLikes[comment.id] > 0 && (
                             <div className="postview-comments-likes">
@@ -209,7 +210,7 @@ const PostViewComment = ({
                                 </div>
                                 <div className="postview-reply-comments-footer">
                                     <div className="postview-reply-comments-date">
-                                        {GetRelativeTime(
+                                        {getDisplayTime(
                                             reply.replyCommentRegTime
                                         )}
                                     </div>

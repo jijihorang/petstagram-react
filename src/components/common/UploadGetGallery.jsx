@@ -15,26 +15,9 @@ import Loading from "../ui/Loading";
 import DeleteConfirm from "../ui/DeleteConfirm";
 import EmojiPicker from "../ui/EmojiPicker";
 import KakaoMapModal from "../ui/kakaomap/KakaoMapModal";
+import HashTagsModal from "../ui/HashTagsModal";
 
 import icons from "../../assets/ImageList";
-
-import styled from "styled-components";
-import AddHashtag from "../ui/AddHashtag/AddHashtag";
-
-const HashtagContainer = styled.div`
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-`;
-
-const Hashtag = styled.div`
-    background: #f5f5f5;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 14px;
-    color: blue;
-`;
 
 const UploadGetGallery = ({ onClose }) => {
     const { isLoggedIn, profileInfo } = useUser();
@@ -52,8 +35,9 @@ const UploadGetGallery = ({ onClose }) => {
     const [mediaType, setMediaType] = useState("");
     const [text, setText] = useState("");
     const [currentSlide, setCurrentSlide] = useState(0);
-    const maxTextLength = 2200;
     const [hashtags, setHashtags] = useState([]);
+
+    const maxTextLength = 2200;
 
     useEffect(() => {
         document.body.style.overflow = "hidden";
@@ -134,6 +118,8 @@ const UploadGetGallery = ({ onClose }) => {
                 })
             );
 
+            formData.append("hashtags", JSON.stringify(hashtags));
+
             if (selectedMedia && selectedMedia.length > 0) {
                 if (mediaType === "image") {
                     for (let media of selectedMedia) {
@@ -149,7 +135,7 @@ const UploadGetGallery = ({ onClose }) => {
                     setTimeout(() => {
                         formData.append("file", selectedMedia[0].file);
                         completeSubmit(formData);
-                    }, 3000); 
+                    }, 3000);
                     return;
                 }
             } else {
@@ -201,7 +187,6 @@ const UploadGetGallery = ({ onClose }) => {
         setHashtags([...hashtags, hashtag]);
     };
 
-
     return (
         <div className="post-frame-container">
             {isModalOpen("loading") && <Loading />}
@@ -223,10 +208,7 @@ const UploadGetGallery = ({ onClose }) => {
                     <div className="post-image-section">
                         {selectedMedia ? (
                             <div className="slider-container">
-                                <Slider
-                                    ref={sliderRef}
-                                    {...sliderSettings}
-                                >
+                                <Slider ref={sliderRef} {...sliderSettings}>
                                     {selectedMedia.map((media, index) => (
                                         <div key={index}>
                                             {mediaType === "image" ? (
@@ -317,20 +299,6 @@ const UploadGetGallery = ({ onClose }) => {
                                 onChange={handleTextChange}
                             />
 
-                         <div className="post-add-hashtag-container">
-                            <img
-                                className="post-hashtag-icon"
-                                alt="hashtag icon"
-                                src="../src/assets/postmodal/hashtag-add.png"
-                                onClick={() => openModal("addHashtag")}
-                            />
-                            <HashtagContainer>
-                                {hashtags.map((hashtag, index) => (
-                                    <Hashtag key={index}>{hashtag}</Hashtag>
-                                ))}
-                            </HashtagContainer>
-                        </div>
-
                             <div className="post-etc-section">
                                 <img
                                     className="post-smile-icon"
@@ -342,11 +310,33 @@ const UploadGetGallery = ({ onClose }) => {
                                     {text.length}/{maxTextLength}
                                 </div>
                             </div>
-
                             {isModalOpen("emojiPicker") && (
                                 <EmojiPicker onEmojiClick={handleEmojiClick} />
                             )}
-
+                        </div>
+                        <div className="post-hashtag-container">
+                            <img
+                                className="post-hashtag-icon"
+                                alt="hashtag icon"
+                                src={icons.addHashTagIcon}
+                                onClick={() => openModal("addHashtag")}
+                            />
+                            <div className="post-hashtag-wrapper">
+                                {hashtags.length === 0 ? (
+                                    <div className="post-hashtags-empty">
+                                        #해시태그
+                                    </div>
+                                ) : (
+                                    hashtags.map((hashtag, index) => (
+                                        <div
+                                            key={index}
+                                            className="post-hashtags"
+                                        >
+                                            {hashtag}
+                                        </div>
+                                    ))
+                                )}
+                            </div>
                         </div>
                         <PostOptions
                             openModal={openModal}
@@ -364,8 +354,8 @@ const UploadGetGallery = ({ onClose }) => {
                     setSelectedAddress={setSelectedAddress}
                 />
             )}
-             {isModalOpen("addHashtag") && (
-                <AddHashtag
+            {isModalOpen("addHashtag") && (
+                <HashTagsModal
                     onClose={() => closeModal("addHashtag")}
                     onAddHashtag={handleAddHashtag}
                 />

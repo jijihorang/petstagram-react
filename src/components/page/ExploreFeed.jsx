@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import "./ExploreFeed.css";
 import usePost from "../hook/usePost";
 import useModal from "../hook/useModal";
@@ -8,7 +9,9 @@ import useLikeStatus from "../hook/useLikeStatus";
 import useFollow from "../hook/useFollow";
 import icons from "../../assets/ImageList";
 
+/* 자신의 게시글 제외 시키기 */
 const ExploreFeed = () => {
+    const { hashtag } = useParams();
     const { postList = [] } = usePost();
     const { openModal, closeModal, isModalOpen } = useModal();
     const { commentList } = useComment();
@@ -33,14 +36,14 @@ const ExploreFeed = () => {
         const commonOptions = [
             {
                 label: "취소",
-                className: "moreoption-cancel",
+                className: "explore-moreoption-cancel",
                 onClick: () => closeModal("more"),
             },
         ];
         return [
             {
                 label: "이 계정 정보",
-                className: "moreoption-account",
+                className: "explore-moreoption-account",
                 onClick: () => console.log("추후 작성"),
             },
             {
@@ -48,8 +51,8 @@ const ExploreFeed = () => {
                     ? "팔로우 취소"
                     : `${post.email}님 팔로우`,
                 className: isFollowing(post.userId)
-                    ? "moreoption-unfollow"
-                    : "moreoption-follow",
+                    ? "explore-moreoption-unfollow"
+                    : "explore-moreoption-follow",
                 onClick: async () => {
                     if (isFollowing(post.userId)) {
                         await handleUnfollow(post.userId);
@@ -61,7 +64,7 @@ const ExploreFeed = () => {
             },
             {
                 label: "공유",
-                className: "moreoption-share",
+                className: "explore-moreoption-share",
                 onClick: () => {
                     console.log("카카오톡 api 공유 추후 작성");
                     closeModal("more");
@@ -71,11 +74,16 @@ const ExploreFeed = () => {
         ];
     };
 
+    // 해시태그로 필터링된 포스트 목록 생성
+    const filteredPostList = hashtag
+        ? postList.filter((post) => post.hashtags.includes(`#${hashtag}`))
+        : postList;
+
     return (
         <div className="explore">
             <div className="explore-frame">
-                <div className="grid-container">
-                    {postList.map((post) => (
+                <div className="explore-grid-container">
+                    {filteredPostList.map((post) => (
                         <ExploreFeedItem
                             key={post.id}
                             post={post}
@@ -100,44 +108,58 @@ const ExploreFeed = () => {
     );
 };
 
-const ExploreFeedItem = ({ post, getImageUrl, getVideoUrl, handleMediaClick, commentList }) => {
+const ExploreFeedItem = ({
+    post,
+    getImageUrl,
+    getVideoUrl,
+    handleMediaClick,
+    commentList,
+}) => {
     const { postLikesCount } = useLikeStatus(post.id);
-    const postComments = commentList.find((c) => c.postId === post.id)?.comments || [];
+    const postComments =
+        commentList.find((c) => c.postId === post.id)?.comments || [];
 
     return (
-        <div className="grid-item" onClick={() => handleMediaClick(post)}>
+        <div
+            className={`explore-grid-item ${
+                post.videoList && post.videoList.length > 0
+                    ? "explore-grid-item-video"
+                    : ""
+            }`}
+            onClick={() => handleMediaClick(post)}
+        >
             {post.imageList && post.imageList.length > 0 && (
-                <div className="image-wrapper">
+                <div className="explore-image-wrapper">
                     <img
                         src={getImageUrl(post.imageList[0])}
                         alt="post-thumbnail"
                         className="explore-grid-image"
                     />
-                    {post.imageList.length > 1 && (
+                    {/* {post.imageList.length > 1 && (
                         <img
                             src={icons.imageIcon}
                             alt="multi-image-icon"
                             className="explore-multi-image-icon"
                         />
-                    )}
+                    )} */}
                 </div>
             )}
             {post.videoList && post.videoList.length > 0 && (
-                <div className="video-wrapper">
+                <div className="explore-video-wrapper">
                     <video
                         src={getVideoUrl(post.videoList[0])}
                         className="explore-grid-video"
                         controls
                     />
-                    <img
+                    {/* <img
                         src={icons.videoIcon}
                         alt="video-icon"
                         className="explore-video-icon"
-                    />
+                    /> */}
                 </div>
             )}
-            <div className="overlay">
-                <div className="info">
+            <div className="explore-overlay">
+                <div className="explore-info">
                     <span>
                         <img src={icons.heartwhite} alt="Likes" />
                     </span>
